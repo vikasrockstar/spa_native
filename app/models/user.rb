@@ -4,8 +4,10 @@ class User < ApplicationRecord
   has_secure_password
   has_one_time_password length: 6, counter_based: true
   has_one_attached :profile_picture
-  validates :email, uniqueness: true
-  validates :mobile_number, uniqueness: true
+  validates :email, presence: true, uniqueness: true
+  validates :mobile_number, uniqueness: true, presence: true
+
+  validates :first_name, :last_name, presence: true
 
   def send_auth_code
     options = {
