@@ -3,13 +3,13 @@ Rails.application.routes.draw do
 
   resources :users, only: [:index], :defaults => { :format => 'json' } do
     collection do
-      get 'generate_otp'
-      get 'validate_otp'
-      get 'resend_otp'
-      post 'reset_password'
+      post 'generate_otp'
+      post 'validate_otp'
+      patch 'reset_password'
       post 'registration'
       post 'login'
       get 'profile'
     end
   end
+  resources :bank_accounts
 end

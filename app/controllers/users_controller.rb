@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :authorize_request, only: [:profile, :reset_password]
-  before_action :set_user, only: [:login, :reset_password, :generate_otp, :validate_otp, :resend_otp]
+  before_action :set_user, only: [:login, :reset_password, :generate_otp, :validate_otp]
 
   def registration
     user = User.new(user_params)
@@ -45,11 +45,6 @@ class UsersController < ApplicationController
     else
       render json: {message: 'invalid otp code'}, status: 401
     end
-  end
-
-  def resend_otp
-    @user.send_auth_code
-    render json: {user: @user.filter_password, message: 'code resend successfully'}, status: 200
   end
 
   private
