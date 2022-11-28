@@ -1,11 +1,11 @@
 class UsersController < ApplicationController
-  before_action :authorize_request, only: [:profile, :reset_password]
-  before_action :set_user, only: [:login, :reset_password, :generate_otp, :validate_otp, :resend_otp]
+  before_action :authorize_request, only: %i[profile reset_password]
+  before_action :set_user, only: %i[login reset_password generate_otp validate_otp resend_otp]
 
   def registration
     user = User.new(user_params)
     if user.save
-      render json: { user: user.filter_password }, status: 201
+      render json: { user: user.filter_password, wallet: user.wallet.balance }, status: 201
     else
       render json: { errors: user.errors }, status: 422
     end
@@ -21,8 +21,7 @@ class UsersController < ApplicationController
   end
 
   def profile
-    # Need to send wallet balance
-    render json: {user: @current_user.filter_password}, status: 200
+    render json: { user: @current_user.filter_password, wallet: @current_user.wallet.balance }, status: 200
   end
 
   def reset_password
@@ -35,13 +34,13 @@ class UsersController < ApplicationController
 
   def generate_otp
     @user.send_auth_code
-    render json: {user: @user.filter_password, message: 'otp sent to mobile number'}, status: 200
+    render json: { user: @user.filter_password, message: 'otp sent to mobile number' }, status: 200
   end
 
   def validate_otp
     if @user.authenticate_otp(params[:otp_code], auto_increment: true)
       token = JsonWebToken.encode(user_id: @user.id)
-      render json: {user: @user.filter_password, token: token, message: 'successfully validated otp code'}, status: 200
+      render json: { user: @user.filter_password, token: token, message: 'successfully validated otp code' }, status: 200
     else
       render json: {message: 'invalid otp code'}, status: 401
     end
@@ -49,7 +48,7 @@ class UsersController < ApplicationController
 
   def resend_otp
     @user.send_auth_code
-    render json: {user: @user.filter_password, message: 'code resend successfully'}, status: 200
+    render json: { user: @user.filter_password, message: 'code resend successfully' }, status: 200
   end
 
   private

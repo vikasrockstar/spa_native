@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_14_065742) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_18_100924) do
   create_table "active_storage_attachments", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -50,6 +50,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_14_065742) do
     t.datetime "updated_at", null: false
     t.string "otp_secret_key"
     t.integer "otp_counter", default: 0
+  end
+
+  create_table "wallets", charset: "utf8mb4", force: :cascade do |t|
+    t.float "balance", default: 0.0
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_wallets_on_user_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
