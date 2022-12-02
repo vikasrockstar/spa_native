@@ -57,6 +57,7 @@ group :development, :test do
   gem "faker"
   gem 'database_cleaner'
   gem 'pry'
+  gem 'rubocop'
 end
 
 group :development do

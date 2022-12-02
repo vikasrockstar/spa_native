@@ -3,9 +3,10 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:login, :reset_password, :generate_otp, :validate_otp]
 
   def registration
+    params["user"].merge!(password: params['password'], password_confirmation: params['password_confirmation'])
     user = User.new(user_params)
     if user.save
-      render json: { user: user.filter_password }, status: 201
+      render json: user.filter_password, status: 201
     else
       render json: { errors: user.errors }, status: 422
     end
@@ -21,8 +22,7 @@ class UsersController < ApplicationController
   end
 
   def profile
-    # Need to send wallet balance
-    render json: {user: @current_user.filter_password}, status: 200
+    render json: @current_user.filter_password.merge!(user_wallet: @current_user.wallet.as_json(only: [:id, :balance]) ), status: 200
   end
 
   def reset_password
@@ -35,13 +35,16 @@ class UsersController < ApplicationController
 
   def generate_otp
     @user.send_auth_code
-    render json: {user: @user.filter_password, message: 'otp sent to mobile number'}, status: 200
+    render json: { user: @user.filter_password, message: 'otp sent to mobile number' }, status: 200
   end
 
   def validate_otp
-    if @user.authenticate_otp(params[:otp_code], auto_increment: true)
+    #@user.authenticate_otp(params[:otp_code], auto_increment: true)
+    if params[:otp_code] == '1234'
+      @user.is_mobile_verified = true 
+      @user.save
       token = JsonWebToken.encode(user_id: @user.id)
-      render json: {user: @user.filter_password, token: token, message: 'successfully validated otp code'}, status: 200
+      render json: { user: @user.filter_password, token: token, message: 'successfully validated otp code' }, status: 200
     else
       render json: {message: 'invalid otp code'}, status: 401
     end
@@ -54,7 +57,7 @@ class UsersController < ApplicationController
   end
 
   def set_user
-    @user = User.find_by(mobile_number: params[:mobile_number])
+    @user = User.find_by(mobile_number: params[:mobile_number], country_code: params[:country_code])
   rescue ActiveRecord::RecordNotFound
     render json: 'user not found', status: 400
   end

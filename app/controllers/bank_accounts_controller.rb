@@ -1,4 +1,6 @@
 class BankAccountsController < ApplicationController
+  before_action :authorize_request, only: [:create, :show, :index]
+
 	def create
 		bank_detail = BankAccount.new(bank_details_params)
 		if bank_detail.save

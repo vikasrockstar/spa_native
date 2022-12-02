@@ -4,12 +4,14 @@ class User < ApplicationRecord
   has_secure_password
   has_one_time_password length: 6, counter_based: true
   has_one_attached :profile_picture
-  has_many :bank_accounts
-
+  has_many :bank_accounts, dependent: :destroy
+  has_one :wallet, dependent: :destroy
   validates :email, presence: true, uniqueness: true
   validates :mobile_number, uniqueness: true, presence: true
 
   validates :first_name, :last_name, presence: true
+
+  after_create :set_wallet
 
   def send_auth_code
     options = {
@@ -20,12 +22,17 @@ class User < ApplicationRecord
   end
 
   def filter_password
-    self.attributes.except('password_digest', 'otp_secret_key', 'otp_counter')
+    attributes.except('password_digest', 'otp_secret_key', 'otp_counter')
+  end
+
+  def set_wallet
+    wallet = build_wallet
+    wallet.save!
   end
 
   private
 
   def mobile_with_code
-    self.country_code + self.mobile_number
+    country_code + mobile_number
   end
 end
