@@ -17,7 +17,7 @@ class UsersController < ApplicationController
       token = JsonWebToken.encode(user_id: @user.id)
       render json: { token: token }, status: :ok
     else
-      render json: { error: 'unauthorized' }, status: :unauthorized
+      render json: { error: 'Mobile number or password not found' }, status: 400
     end
   end
 
@@ -58,7 +58,8 @@ class UsersController < ApplicationController
 
   def set_user
     @user = User.find_by(mobile_number: params[:mobile_number], country_code: params[:country_code])
+    raise ActiveRecord::RecordNotFound unless @user
   rescue ActiveRecord::RecordNotFound
-    render json: 'user not found', status: 400
+    render json: { error: 'Mobile number or password not found' }, status: 400
   end
 end
