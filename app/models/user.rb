@@ -6,8 +6,8 @@ class User < ApplicationRecord
   has_one_attached :profile_picture
   has_many :bank_accounts, dependent: :destroy
   has_one :wallet, dependent: :destroy
-  validates :email, presence: true, uniqueness: true
-  validates :mobile_number, uniqueness: true, presence: true
+  validates :email, presence: true, uniqueness: { message: 'Email Id already exists' }
+  validates :mobile_number, uniqueness: { message: 'Mobile number already exist please login' }, presence: true
 
   validates :first_name, :last_name, presence: true
 
