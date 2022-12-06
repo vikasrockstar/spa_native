@@ -2,14 +2,17 @@ class User < ApplicationRecord
   require File.join File.dirname(__FILE__), 'send_code'
 
   has_secure_password
-  has_one_time_password length: 6, counter_based: true
+  has_one_time_password length: 4, counter_based: true
   has_one_attached :profile_picture
   has_many :bank_accounts, dependent: :destroy
   has_one :wallet, dependent: :destroy
-  validates :email, presence: true, uniqueness: true
-  validates :mobile_number, uniqueness: true, presence: true
 
+  validates :email, presence: true, uniqueness: true
   validates :first_name, :last_name, presence: true
+  validates :mobile_number,:presence => true,
+                 :numericality => true,
+                 :presence => true,
+                 :length => { :minimum => 10, :maximum => 10 }
 
   after_create :set_wallet
 
