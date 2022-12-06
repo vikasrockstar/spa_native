@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       post 'registration'
       post 'login'
       get 'profile'
+      patch 'update_mobile_number'
     end
   end
   resources :bank_accounts

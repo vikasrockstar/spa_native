@@ -35,11 +35,11 @@ class UsersController < ApplicationController
 
   def generate_otp
     @user.send_auth_code
-    render json: { user: @user.filter_password, message: 'otp sent to mobile number' }, status: 200
+    render json: @user.filter_password, message: 'otp sent to mobile number', status: 200
   end
 
   def validate_otp
-    #@user.authenticate_otp(params[:otp_code], auto_increment: true)
+    @user.authenticate_otp(params[:otp_code], auto_increment: true)
     if params[:otp_code] == '1234'
       @user.is_mobile_verified = true 
       @user.save
@@ -50,6 +50,9 @@ class UsersController < ApplicationController
     end
   end
 
+  def update_mobile_number
+  end
+
   private
 
   def user_params
@@ -58,8 +61,6 @@ class UsersController < ApplicationController
 
   def set_user
     @user = User.find_by(mobile_number: params[:mobile_number], country_code: params[:country_code])
-    raise ActiveRecord::RecordNotFound unless @user
-  rescue ActiveRecord::RecordNotFound
-    render json: { error: 'Mobile number or password not found' }, status: 400
+    render json: 'user not found', status: 400 if @user.nil?
   end
 end
