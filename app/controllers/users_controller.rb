@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authorize_request, only: [:profile, :reset_password]
+  before_action :authorize_request, only: [:profile, :reset_password, :update]
   before_action :set_user, only: [:login, :reset_password, :generate_otp, :validate_otp]
 
   def registration
@@ -53,6 +53,14 @@ class UsersController < ApplicationController
   def update_mobile_number
   end
 
+  def update
+    if @current_user.update(user_params)
+      render json: { user: @current_user.filter_password }, status: 200
+    else
+      render json: { errors: @current_user.errors }, status: 422
+    end
+  end
+
   private
 
   def user_params
@@ -61,6 +69,6 @@ class UsersController < ApplicationController
 
   def set_user
     @user = User.find_by(mobile_number: params[:mobile_number], country_code: params[:country_code])
-    render json: 'user not found', status: 400 if @user.nil?
+    render json: { errors: 'user not found' }, status: 400 if @user.nil?
   end
 end
