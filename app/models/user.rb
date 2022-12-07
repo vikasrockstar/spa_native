@@ -16,6 +16,8 @@ class User < ApplicationRecord
                  :length => { :minimum => 10, :maximum => 10 }
 
   after_create :set_wallet
+  
+  scope :unverified_users, -> { where(is_mobile_verified: false) }
 
   def send_auth_code
     options = {

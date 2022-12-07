@@ -10,7 +10,8 @@ Rails.application.routes.draw do
       post 'login'
       get 'profile'
       patch 'update_mobile_number'
-      patch 'update'
+      put 'update'
+      patch 'upload_image'
     end
   end
   resources :bank_accounts

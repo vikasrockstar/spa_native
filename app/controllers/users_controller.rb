@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
-  before_action :authorize_request, only: [:profile, :reset_password, :update]
+  before_action :authorize_request, only: [:profile, :reset_password, :update, :upload_image]
   before_action :set_user, only: [:login, :reset_password, :generate_otp, :validate_otp]
+  before_action :check_email, only: [:update_mobile_number]
 
   def registration
     params["user"].merge!(password: params['password'], password_confirmation: params['password_confirmation'])
@@ -51,10 +52,24 @@ class UsersController < ApplicationController
   end
 
   def update_mobile_number
+    if @user.update(mobile_params)
+      render json: { user: @user.filter_password }, status: 200
+    else
+      render json: { errors: @user.errors }, status: 422
+    end
   end
 
   def update
-    if @current_user.update(user_params)
+    if @current_user.update(update_params)
+      render json: { user: @current_user.filter_password }, status: 200
+    else
+      render json: { errors: @current_user.errors }, status: 422
+    end
+  end
+
+  def upload_image
+    @current_user.profile_picture = params[:file]
+    if @current_user.save
       render json: { user: @current_user.filter_password }, status: 200
     else
       render json: { errors: @current_user.errors }, status: 422
@@ -67,8 +82,25 @@ class UsersController < ApplicationController
     params.require(:user).permit(:email, :password, :password_confirmation, :first_name, :last_name, :mobile_number, :country_code, :profile_picture)
   end
 
+  def update_params
+    params.require(:user).permit(:email, :first_name, :last_name)
+  end
+
+  def mobile_params
+    params.require(:user).permit(:mobile_number, :country_code)
+  end
+
   def set_user
     @user = User.find_by(mobile_number: params[:mobile_number], country_code: params[:country_code])
     render json: { errors: 'user not found' }, status: 400 if @user.nil?
+  end
+  
+  def check_email
+    @user = User.find_by(email: params[:email])
+    if @user.nil?
+      render json: { errors: 'user not found' }, status: 400
+    elsif @user.is_mobile_verified?
+      render json: { errors: 'user is already verified' }, status: 400
+    end
   end
 end
