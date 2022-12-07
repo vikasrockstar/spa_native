@@ -3,6 +3,7 @@ class BankAccountsController < ApplicationController
 
 	def create
 		bank_account = BankAccount.new(bank_details_params)
+    bank_account.user_id = @current_user.id
 		if bank_account.save
       bank_account.deactive_account
       render json: bank_account, status: 201
