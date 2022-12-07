@@ -47,7 +47,7 @@ class UsersController < ApplicationController
       token = JsonWebToken.encode(user_id: @user.id)
       render json: { user: @user.filter_password, token: token, message: 'successfully validated otp code' }, status: 200
     else
-      render json: {message: 'invalid otp code'}, status: 401
+      render json: { errors: 'invalid otp code' }, status: 401
     end
   end
 
