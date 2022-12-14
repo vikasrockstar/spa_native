@@ -9,7 +9,7 @@ class UsersController < ApplicationController
     if user.save
       render json: user.filter_password, status: 201
     else
-      render json: { errors: user.errors }, status: 422
+      render json: { errors: user.errors.full_messages }, status: 422
     end
   end
 
@@ -30,7 +30,7 @@ class UsersController < ApplicationController
     if @user.update(password: params[:password])
       render json: { user: @user.filter_password }, status: 200
     else
-      render json: { errors: @user.errors }, status: 422
+      render json: { errors: @user.errors.full_messages }, status: 422
     end
   end
 
@@ -55,7 +55,7 @@ class UsersController < ApplicationController
     if @user.update(mobile_params)
       render json: { user: @user.filter_password }, status: 200
     else
-      render json: { errors: @user.errors }, status: 422
+      render json: { errors: @user.errors.full_messages }, status: 422
     end
   end
 
@@ -63,7 +63,7 @@ class UsersController < ApplicationController
     if @current_user.update(update_params)
       render json: { user: @current_user.filter_password }, status: 200
     else
-      render json: { errors: @current_user.errors }, status: 422
+      render json: { errors: @current_user.errors.full_messages }, status: 422
     end
   end
 
@@ -72,7 +72,7 @@ class UsersController < ApplicationController
     if @current_user.save
       render json: { user: @current_user.filter_password }, status: 200
     else
-      render json: { errors: @current_user.errors }, status: 422
+      render json: { errors: @current_user.errors.full_messages }, status: 422
     end
   end
 
