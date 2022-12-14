@@ -77,7 +77,6 @@ RSpec.describe "Users", type: :request do
 
       post 'http://127.0.0.1:3000/users/login', params: login_user_params
       expect(response.status).to eq(200)
-      debugger
       json = JSON.parse(response.body).deep_symbolize_keys
 
       token = JsonWebToken.encode(user_id: User.last.id)
@@ -89,7 +88,6 @@ RSpec.describe "Users", type: :request do
       post 'http://127.0.0.1:3000/users/registration', params: create_user_params
 
       post 'http://127.0.0.1:3000/users/login', params: invalid_login_user_params
-      debugger
       expect(response.status).to eq(401)
       json = JSON.parse(response.body).deep_symbolize_keys
 
