@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_14_074844) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_14_143311) do
   create_table "active_storage_attachments", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -66,6 +66,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_14_074844) do
     t.string "otp_secret_key"
     t.integer "otp_counter", default: 0
     t.boolean "is_mobile_verified", default: false
+    t.string "profile_picture_file_name"
+    t.string "profile_picture_content_type"
+    t.bigint "profile_picture_file_size"
+    t.datetime "profile_picture_updated_at"
   end
 
   create_table "wallets", charset: "utf8mb4", force: :cascade do |t|

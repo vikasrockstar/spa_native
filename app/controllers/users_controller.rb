@@ -1,13 +1,15 @@
 class UsersController < ApplicationController
+  include ActiveStorage::SetCurrent
   before_action :authorize_request, only: [:profile, :reset_password, :update, :upload_image]
   before_action :set_user, only: [:login, :reset_password, :generate_otp, :validate_otp]
   before_action :check_email, only: [:update_mobile_number]
+  before_action :set_user_params, only: [:registration, :update]
 
   def registration
-    params["user"].merge!(password: params['password'], password_confirmation: params['password_confirmation'])
-    user = User.new(user_params)
+    user = User.new(new_user_params)
+    user.profile_picture.attach(params[:image])
     if user.save
-      render json: user.filter_password, status: 201
+      render json: user.filter_password.merge!(image: user.profile_picture&.url), status: 201
     else
       render json: { errors: user.errors.full_messages }, status: 422
     end
@@ -18,7 +20,7 @@ class UsersController < ApplicationController
       token = JsonWebToken.encode(user_id: @user.id)
       render json: { token: token }, status: :ok
     else
-      render json: { error: 'Mobile number or password not found' }, status: 400
+      render json: { errors: 'Mobile number or password not found' }, status: 400
     end
   end
 
@@ -60,8 +62,9 @@ class UsersController < ApplicationController
   end
 
   def update
+    @current_user.profile_picture.attach(params[:image])
     if @current_user.update(update_params)
-      render json: { user: @current_user.filter_password }, status: 200
+      render json: { user: @current_user.filter_password.merge!(image: @current_user.profile_picture&.url) }, status: 200
     else
       render json: { errors: @current_user.errors.full_messages }, status: 422
     end
@@ -78,12 +81,26 @@ class UsersController < ApplicationController
 
   private
 
-  def user_params
-    params.require(:user).permit(:email, :password, :password_confirmation, :first_name, :last_name, :mobile_number, :country_code, :profile_picture)
+  def set_user_params
+    @user_params ||= ActionController::Parameters.new({
+      user: {
+        email: params[:email],
+        first_name: params[:first_name],
+        last_name: params[:last_name],
+        mobile_number: params[:mobile_number],
+        country_code: params[:country_code],
+        password: params[:password],
+        password_confirmation: params[:password_confirmation]
+      }
+    })
+  end
+
+  def new_user_params
+    @user_params.require(:user).permit(:email, :password, :password_confirmation, :first_name, :last_name, :mobile_number, :country_code)
   end
 
   def update_params
-    params.require(:user).permit(:email, :first_name, :last_name)
+    @user_params.require(:user).permit(:email, :first_name, :last_name)
   end
 
   def mobile_params

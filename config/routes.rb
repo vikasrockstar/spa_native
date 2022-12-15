@@ -14,5 +14,5 @@ Rails.application.routes.draw do
       patch 'upload_image'
     end
   end
-  resources :bank_accounts
+  resources :bank_accounts, only: [:create, :show, :index, :destroy]
 end
