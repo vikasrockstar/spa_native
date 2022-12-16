@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       patch 'update_mobile_number'
       put 'update'
       patch 'upload_image'
+      get 'transactions'
     end
   end
   resources :bank_accounts

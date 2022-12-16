@@ -1,7 +1,14 @@
 class UsersController < ApplicationController
-  before_action :authorize_request, only: [:profile, :reset_password, :update, :upload_image]
+  before_action :authorize_request, only: [:profile, :reset_password, :update, :upload_image, :transactions]
   before_action :set_user, only: [:login, :reset_password, :generate_otp, :validate_otp]
   before_action :check_email, only: [:update_mobile_number]
+
+  def transactions
+    per_page = 10
+    offset = per_page*params[:page_number].to_i
+    transactions = @current_user.transactions.offset(offset)
+    render json: { transactions: transactions }, status: 200
+  end
 
   def registration
     params["user"].merge!(password: params['password'], password_confirmation: params['password_confirmation'])
