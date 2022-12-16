@@ -19,11 +19,7 @@ class BankAccountsController < ApplicationController
 
 	def index
 		bank_accounts = @current_user.bank_accounts
-		if bank_accounts.present?
-      render json: { list: bank_accounts }, status: 200
-    else
-      render json: { errors: 'bank detail not found' }, status: 400
-    end
+    render json: { list: bank_accounts }, status: 200
 	end
 
   def destroy

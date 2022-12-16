@@ -3,13 +3,6 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:login, :reset_password, :generate_otp, :validate_otp]
   before_action :check_email, only: [:update_mobile_number]
 
-  def transactions
-    per_page = 10
-    offset = per_page*params[:page_number].to_i
-    transactions = @current_user.transactions.offset(offset)
-    render json: { transactions: transactions }, status: 200
-  end
-
   def registration
     params["user"].merge!(password: params['password'], password_confirmation: params['password_confirmation'])
     user = User.new(user_params)
@@ -25,7 +18,7 @@ class UsersController < ApplicationController
       token = JsonWebToken.encode(user_id: @user.id)
       render json: { token: token }, status: :ok
     else
-      render json: { error: 'Mobile number or password not found' }, status: 400
+      render json: { errors: 'Mobile number or password not found' }, status: 400
     end
   end
 
@@ -72,6 +65,13 @@ class UsersController < ApplicationController
     else
       render json: { errors: @current_user.errors.full_messages }, status: 422
     end
+  end
+
+  def transactions
+    per_page = 10
+    offset = per_page*(params[:page_number].to_i - 1)
+    transactions = @current_user.transactions.offset(offset).limit(per_page)
+    render json: { transactions: transactions }, status: 200
   end
 
   def upload_image
