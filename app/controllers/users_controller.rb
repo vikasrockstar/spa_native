@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   include ActiveStorage::SetCurrent
-  before_action :authorize_request, only: [:profile, :reset_password, :update, :upload_image]
+  before_action :authorize_request, only: [:profile, :reset_password, :update, :transactions]
   before_action :set_user, only: [:login, :reset_password, :generate_otp, :validate_otp]
   before_action :check_email, only: [:update_mobile_number]
   before_action :set_user_params, only: [:registration, :update]
@@ -70,13 +70,15 @@ class UsersController < ApplicationController
     end
   end
 
-  def upload_image
-    @current_user.profile_picture = params[:file]
-    if @current_user.save
-      render json: { user: @current_user.filter_password }, status: 200
-    else
-      render json: { errors: @current_user.errors.full_messages }, status: 422
-    end
+  def transactions
+    per_page, page_number = [ 10, params[:page_number].to_i ]
+    total_transactions = @current_user.transactions.count
+    total_pages = total_transactions/per_page
+    next_page = (page_number >= total_pages -1) ? -1 : page_number+1
+    transactions = @current_user.transactions.offset(per_page*page_number).limit(per_page)
+    render json: { list: transactions, page_number: next_page }, status: 200
+  rescue
+    render json: { errors: 'Invalid parameters'}, status: 200
   end
 
   private

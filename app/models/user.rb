@@ -6,6 +6,7 @@ class User < ApplicationRecord
   has_one_attached :profile_picture
   # validates_acceptance_of :profile_picture, content_type: /\Aimage\/.*\z/
   has_many :bank_accounts, dependent: :destroy
+  has_many :transactions, dependent: :destroy
   has_one :wallet, dependent: :destroy
 
   validates :email, presence: true, uniqueness: { message: 'Id already exists' }

@@ -3,6 +3,7 @@ class BankAccount < ApplicationRecord
   validates_as_paranoid
   belongs_to :user
   before_create :active_account
+  has_many :transactions
 
   validates :account_number,:presence => true,
                  :numericality => true,
