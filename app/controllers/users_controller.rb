@@ -71,9 +71,9 @@ class UsersController < ApplicationController
     per_page, page_number = [ 10, params[:page_number].to_i ]
     total_transactions = @current_user.transactions.count
     total_pages = total_transactions/per_page
-    next_page = (page_number == total_pages -1) ? -1 : page_number+1
+    next_page = (page_number >= total_pages -1) ? -1 : page_number+1
     transactions = @current_user.transactions.offset(per_page*page_number).limit(per_page)
-    render json: { list: transactions, page_number: next_page}, status: 200
+    render json: { list: transactions, page_number: next_page }, status: 200
   rescue
     render json: { errors: 'Invalid parameters'}, status: 200
   end
