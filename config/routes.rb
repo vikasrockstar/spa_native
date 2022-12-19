@@ -11,9 +11,18 @@ Rails.application.routes.draw do
       get 'profile'
       patch 'update_mobile_number'
       put 'update'
-      patch 'upload_image'
       get 'transactions'
     end
   end
   resources :bank_accounts, only: [:create, :show, :index, :destroy]
+  namespace :api do
+    namespace :v2 do
+      resources :users, only: [:index], :defaults => { :format => 'json' } do
+        collection do
+          post 'registration'
+          put 'update'
+        end
+      end
+    end
+  end
 end
