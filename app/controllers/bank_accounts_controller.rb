@@ -23,7 +23,9 @@ class BankAccountsController < ApplicationController
 	end
 
   def destroy
+    activate_last_account = @bank_account.is_active
     if @bank_account.destroy
+      @current_user.bank_accounts&.last&.update(is_active: true) if activate_last_account
       render json: { message: 'successfully deleted' }, status: 200
     else
       render json: { errors: @bank_account.errors.full_messages }, status: 400
@@ -44,7 +46,7 @@ class BankAccountsController < ApplicationController
   end
 
   def deactive_other_bank_accounts(current_account_id)
-    other_active_bank_accounts =  @current_user.bank_accounts.active_accounts.where.not(id: current_account_id)
-    other_active_bank_accounts.update_all(is_active: false)
+    other_active_bank_accounts =  @current_user.bank_accounts&.active_accounts&.where.not(id: current_account_id)
+    other_active_bank_accounts&.update_all(is_active: false)
   end
 end
