@@ -24,7 +24,7 @@ class UsersController < ApplicationController
   end
 
   def profile
-    render json: @current_user.filter_password.merge!(user_wallet: @current_user.wallet.as_json(only: [:id, :balance]) ), status: 200
+    render json: @current_user.filter_password.merge!(image_data).merge!(wallet_data), status: 200
   end
 
   def reset_password
@@ -119,5 +119,16 @@ class UsersController < ApplicationController
     elsif @user.is_mobile_verified?
       render json: { errors: 'user is already verified' }, status: 400
     end
+  end
+
+  def image_data
+    {
+      image: @current_user.profile_picture&.url
+    }
+  end
+  def wallet_data
+    {
+      user_wallet: @current_user.wallet.as_json(only: [:id, :balance])
+    }
   end
 end
