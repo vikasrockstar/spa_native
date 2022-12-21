@@ -4,7 +4,9 @@ class User < ApplicationRecord
   has_secure_password
   has_one_time_password length: 4, counter_based: true
   has_one_attached :profile_picture
+  # validates_acceptance_of :profile_picture, content_type: /\Aimage\/.*\z/
   has_many :bank_accounts, dependent: :destroy
+  has_many :transactions, dependent: :destroy
   has_one :wallet, dependent: :destroy
 
   validates :email, presence: true, uniqueness: { message: 'Id already exists' }
@@ -27,7 +29,7 @@ class User < ApplicationRecord
   end
 
   def filter_password
-    attributes.except('password_digest', 'otp_secret_key', 'otp_counter')
+    attributes.except('password_digest', 'otp_secret_key', 'otp_counter', 'profile_picture_file_name', 'profile_picture_content_type', 'profile_picture_file_size', 'profile_picture_updated_at')
   end
 
   def set_wallet

@@ -18,17 +18,15 @@ class BankAccountsController < ApplicationController
 	end
 
 	def index
-		bank_accounts = @current_user.bank_accounts
-		if bank_accounts.present?
-      render json: { list: bank_accounts }, status: 200
-    else
-      render json: { errors: 'bank detail not found' }, status: 400
-    end
+	  bank_accounts = @current_user.bank_accounts.order(is_active: :desc)
+    render json: { list: bank_accounts }, status: 200
 	end
 
   def destroy
+    activate_last_account = @bank_account.is_active
     if @bank_account.destroy
-      render json: { message: 'successfully deleted' }, status: 200
+      @current_user.bank_accounts&.last&.update(is_active: true) if activate_last_account
+      render json: { message: ['successfully deleted'] }, status: 200
     else
       render json: { errors: @bank_account.errors.full_messages }, status: 400
     end
@@ -43,12 +41,12 @@ class BankAccountsController < ApplicationController
   def set_bank_account
     @bank_account = @current_user.bank_accounts.find_by(id: params[:id])
     if @bank_account.nil?
-      render json: {errors: 'bank detail not found'}, status: 400
+      render json: {errors: ['bank detail not found']}, status: 400
     end
   end
 
   def deactive_other_bank_accounts(current_account_id)
-    other_active_bank_accounts =  @current_user.bank_accounts.active_accounts.where.not(id: current_account_id)
-    other_active_bank_accounts.update_all(is_active: false)
+    other_active_bank_accounts =  @current_user.bank_accounts&.active_accounts&.where.not(id: current_account_id)
+    other_active_bank_accounts&.update_all(is_active: false)
   end
 end
