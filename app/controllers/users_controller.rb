@@ -19,7 +19,7 @@ class UsersController < ApplicationController
       token = JsonWebToken.encode(user_id: @user.id)
       render json: { token: token }, status: :ok
     else
-      render json: { errors: 'Mobile number or password not found' }, status: 400
+      render json: { errors: ['Mobile number or password not found'] }, status: 400
     end
   end
 
@@ -37,7 +37,7 @@ class UsersController < ApplicationController
 
   def generate_otp
     @user.send_auth_code
-    render json: @user.filter_password, message: 'otp sent to mobile number', status: 200
+    render json:  {user: @user.filter_password, message: 'otp sent to mobile number'}, status: 200
   end
 
   def validate_otp
@@ -48,7 +48,7 @@ class UsersController < ApplicationController
       token = JsonWebToken.encode(user_id: @user.id)
       render json: { user: @user.filter_password, token: token, message: 'successfully validated otp code' }, status: 200
     else
-      render json: {message: 'invalid otp code'}, status: 401
+      render json: {message: ['invalid otp code']}, status: 401
     end
   end
 
@@ -76,7 +76,7 @@ class UsersController < ApplicationController
     transactions = @current_user.transactions.offset(per_page*page_number).limit(per_page)
     render json: { list: transactions, page_number: next_page }, status: 200
   rescue
-    render json: { errors: 'Invalid parameters'}, status: 200
+    render json: { errors: ['Invalid parameters']}, status: 200
   end
 
   private
@@ -115,9 +115,9 @@ class UsersController < ApplicationController
   def check_email
     @user = User.find_by(email: params[:email])
     if @user.nil?
-      render json: { errors: 'user not found' }, status: 400
+      render json: { errors: ['user not found'] }, status: 400
     elsif @user.is_mobile_verified?
-      render json: { errors: 'user is already verified' }, status: 400
+      render json: { errors: ['user is already verified'] }, status: 400
     end
   end
 

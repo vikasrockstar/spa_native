@@ -9,7 +9,6 @@ Rails.application.routes.draw do
       post 'registration'
       post 'login'
       get 'profile'
-      patch 'update_mobile_number'
       put 'update'
       get 'transactions'
     end

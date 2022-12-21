@@ -18,7 +18,7 @@ class BankAccountsController < ApplicationController
 	end
 
 	def index
-		bank_accounts = @current_user.bank_accounts
+	  bank_accounts = @current_user.bank_accounts.order(is_active: :desc)
     render json: { list: bank_accounts }, status: 200
 	end
 
@@ -26,7 +26,7 @@ class BankAccountsController < ApplicationController
     activate_last_account = @bank_account.is_active
     if @bank_account.destroy
       @current_user.bank_accounts&.last&.update(is_active: true) if activate_last_account
-      render json: { message: 'successfully deleted' }, status: 200
+      render json: { message: ['successfully deleted'] }, status: 200
     else
       render json: { errors: @bank_account.errors.full_messages }, status: 400
     end
@@ -41,7 +41,7 @@ class BankAccountsController < ApplicationController
   def set_bank_account
     @bank_account = @current_user.bank_accounts.find_by(id: params[:id])
     if @bank_account.nil?
-      render json: {errors: 'bank detail not found'}, status: 400
+      render json: {errors: ['bank detail not found']}, status: 400
     end
   end
 
