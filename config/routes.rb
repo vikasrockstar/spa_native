@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       get 'profile'
       put 'update'
       get 'transactions'
+      get 'graph_data'
     end
   end
   resources :bank_accounts, only: [:create, :show, :index, :destroy]

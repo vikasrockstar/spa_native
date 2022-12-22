@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   include ActiveStorage::SetCurrent
-  before_action :authorize_request, only: [:profile, :reset_password, :update, :transactions]
+  before_action :authorize_request, only: [:profile, :reset_password, :update, :transactions, :transaction_graph]
   before_action :set_user, only: [:login, :reset_password, :generate_otp, :validate_otp]
   before_action :check_email, only: [:update_mobile_number]
   before_action :set_user_params, only: [:registration, :update]
@@ -79,6 +79,21 @@ class UsersController < ApplicationController
     render json: { list: transactions, page_number: next_page }, status: 200
   rescue
     render json: { errors: ['Invalid parameters']}, status: 200
+  end
+
+  # graph transaction data
+  def graph_data
+    if params[:type].present?
+      case params[:type]
+      when "weekly"
+        transactions = @current_user.transactions.transactions_between(1.week.ago, Time.now)
+      when "monthly"
+        transactions = @current_user.transactions.transactions_between(1.month.ago, Time.now)
+      end
+      render json: { transactions: transactions, type: params[:type] }, status: 200
+    else
+      render json: {errors: ['incorrect or invalid params']}
+    end
   end
 
   private
