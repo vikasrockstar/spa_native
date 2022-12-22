@@ -86,9 +86,11 @@ class UsersController < ApplicationController
     if params[:type].present?
       case params[:type]
       when "weekly"
-        transactions = @current_user.transactions.transactions_between(1.week.ago, Time.now)
+        # transactions = @current_user.transactions.transactions_between(1.week.ago, Time.now)
+        transactions = Transaction.transactions_between(1.week.ago, Time.now)
       when "monthly"
-        transactions = @current_user.transactions.transactions_between(1.month.ago, Time.now)
+        # transactions = @current_user.transactions.transactions_between(1.month.ago, Time.now)
+        transactions = Transaction.transactions_between(1.month.ago, Time.now)
       end
       render json: { transactions: transactions, type: params[:type] }, status: 200
     else
