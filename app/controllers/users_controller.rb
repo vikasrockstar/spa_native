@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   include ActiveStorage::SetCurrent
-  before_action :authorize_request, only: [:profile, :reset_password, :update, :transactions, :transaction_graph]
+  before_action :authorize_request, only: [:profile, :reset_password, :update, :transactions, :graph_data]
   before_action :set_user, only: [:login, :reset_password, :generate_otp, :validate_otp]
   before_action :check_email, only: [:update_mobile_number]
   before_action :set_user_params, only: [:registration, :update]
@@ -48,7 +48,7 @@ class UsersController < ApplicationController
       token = JsonWebToken.encode(user_id: @user.id)
       render json: { user: @user.filter_password, token: token, message: 'successfully validated otp code' }, status: 200
     else
-      render json: {message: ['invalid otp code']}, status: 401
+      render json: { errors: ['invalid otp code']}, status: 401
     end
   end
 
@@ -81,7 +81,7 @@ class UsersController < ApplicationController
     render json: { errors: ['Invalid parameters']}, status: 200
   end
 
-  # graph transaction data
+  # transaction graph data
   def graph_data
     if params[:type].present?
       case params[:type]
