@@ -84,15 +84,37 @@ class UsersController < ApplicationController
   # transaction graph data
   def graph_data
     if params[:type].present?
-      case params[:type]
-      when "weekly"
-        # transactions = @current_user.transactions.transactions_between(1.week.ago, Time.now)
-        transactions = Transaction.transactions_between(1.week.ago, Time.now)
-      when "monthly"
-        # transactions = @current_user.transactions.transactions_between(1.month.ago, Time.now)
-        transactions = Transaction.transactions_between(1.month.ago, Time.now)
-      end
-      render json: { transactions: transactions, type: params[:type] }, status: 200
+     data = []
+     case params[:type]
+        when "weekly"
+          transactions = @current_user.transactions.transactions_between(1.week.ago, Time.now)
+          current_day = Time.now
+          (0..6).to_a.each do  |day|
+            current_day_trans = transactions.transactions_between(current_day - 1.day, current_day)
+             data_hash = {
+              :amount => current_day_trans.present? ? current_day_trans.sum(:amount) : 0,
+              :date => current_day,
+              :value_for => current_day.strftime('%a')
+             }
+             data << data_hash
+            current_day = current_day - 1.day
+            end
+
+        when "monthly"
+          transactions = @current_user.transactions.transactions_between(1.year.ago, Time.now)
+          current_month = Time.now
+          (0..11).to_a.each do  |day|
+            current_month_trans = transactions.transactions_between(current_month - 1.months, current_month)
+             data_hash = {
+              :amount => current_month_trans.present? ? current_month_trans.sum(:amount) : 0,
+              :date => current_month,
+              :value_for => current_month.strftime('%b %y')
+             }
+             data << data_hash
+             current_month = current_month - 1.months
+            end
+        end
+      render json: { list: data, type: params[:type] }, status: 200
     else
       render json: {errors: ['incorrect or invalid params']}
     end
