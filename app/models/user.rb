@@ -14,7 +14,7 @@ class User < ApplicationRecord
   validates :mobile_number, uniqueness: true,
                  :numericality => true,
                  :presence => true,
-                 :length => { :minimum => 10, :maximum => 10 }
+                 :length => { :minimum => 8, :maximum => 10 }
 
   after_create :set_wallet
   
