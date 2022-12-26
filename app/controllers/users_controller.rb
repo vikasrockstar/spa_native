@@ -24,7 +24,8 @@ class UsersController < ApplicationController
   end
 
   def profile
-    render json: @current_user.filter_password.merge!(image_data).merge!(wallet_data), status: 200
+    token = JsonWebToken.encode(user_id: @current_user.id)
+    render json: @current_user.filter_password.merge!(image_data).merge!(wallet_data).merge!(token: token), status: 200
   end
 
   def reset_password
