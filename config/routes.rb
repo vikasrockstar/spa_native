@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       post 'generate_otp'
       post 'validate_otp'
       patch 'reset_password'
+      patch 'update_mobile_number'
       post 'registration'
       post 'login'
       get 'profile'

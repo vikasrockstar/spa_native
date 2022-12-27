@@ -44,7 +44,7 @@ class UsersController < ApplicationController
   def validate_otp
     @user.authenticate_otp(params[:otp_code], auto_increment: true)
     if params[:otp_code] == '1234'
-      @user.is_mobile_verified = true 
+      @user.is_mobile_verified = true
       @user.save
       token = JsonWebToken.encode(user_id: @user.id)
       render json: { user: @user.filter_password, token: token, message: 'successfully validated otp code' }, status: 200
@@ -159,7 +159,7 @@ class UsersController < ApplicationController
     if @user.nil?
       render json: { errors: ['user not found'] }, status: 400
     elsif @user.is_mobile_verified?
-      render json: { errors: ['user is already verified'] }, status: 400
+      render json: { errors: ['user is already verified'] }, status: 422
     end
   end
 
