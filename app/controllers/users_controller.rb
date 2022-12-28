@@ -3,8 +3,7 @@ class UsersController < ApplicationController
   before_action :authorize_request, only: [:profile, :reset_password, :update, :transactions]
   before_action :set_user, only: [:login, :reset_password, :generate_otp, :validate_otp]
   before_action :check_email, only: [:update_mobile_number]
-  before_action :set_user_params, only: [:registration, :update]
-
+  
   def registration
     user = User.new(new_user_params)
     if user.save

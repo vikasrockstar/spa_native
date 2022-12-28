@@ -12,6 +12,7 @@ gem "mysql2", "~> 0.5"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"
 
+
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
 
@@ -52,6 +53,10 @@ gem 'dotenv-rails'
 
 # for soft delete records
 gem 'acts_as_paranoid'
+# for Qrcode generator
+
+gem "rqrcode", "~> 2.1"
+gem "chunky_png", "~> 1.4"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
