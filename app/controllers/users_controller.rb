@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authorize_request, only: [:profile, :reset_password, :update, :transactions]
+  before_action :authorize_request, only: [:profile, :reset_password, :update, :transactions, :graph_data]
   before_action :set_user, only: [:login, :reset_password, :generate_otp, :validate_otp]
   before_action :check_email, only: [:update_mobile_number]
   
@@ -22,7 +22,8 @@ class UsersController < ApplicationController
   end
 
   def profile
-    render json: @current_user.filter_password.merge!(image_data).merge!(wallet_data), status: 200
+    token = JsonWebToken.encode(user_id: @current_user.id)
+    render json: @current_user.filter_password.merge!(image_data).merge!(wallet_data).merge!(token: token), status: 200
   end
 
   def reset_password
@@ -41,12 +42,12 @@ class UsersController < ApplicationController
   def validate_otp
     @user.authenticate_otp(params[:otp_code], auto_increment: true)
     if params[:otp_code] == '1234'
-      @user.is_mobile_verified = true 
+      @user.is_mobile_verified = true
       @user.save
       token = JsonWebToken.encode(user_id: @user.id)
       render json: { user: @user.filter_password, token: token, message: 'successfully validated otp code' }, status: 200
     else
-      render json: {message: ['invalid otp code']}, status: 401
+      render json: { errors: ['invalid otp code']}, status: 422
     end
   end
 
@@ -77,6 +78,45 @@ class UsersController < ApplicationController
     render json: { list: transactions, page_number: next_page }, status: 200
   rescue
     render json: { errors: ['Invalid parameters']}, status: 200
+  end
+
+  # transaction graph data
+  def graph_data
+    if params[:type].present?
+     data = []
+     case params[:type]
+        when "weekly"
+          transactions = @current_user.transactions.transactions_between(1.week.ago, Time.now)
+          current_day = Time.now
+          (0..6).to_a.each do  |day|
+            current_day_trans = transactions.transactions_between(current_day - 1.day, current_day)
+             data_hash = {
+              :amount => current_day_trans.present? ? current_day_trans.sum(:amount) : 0,
+              :date => current_day,
+              :value_for => current_day.strftime('%a')
+             }
+             data << data_hash
+            current_day = current_day - 1.day
+            end
+
+        when "monthly"
+          transactions = @current_user.transactions.transactions_between(1.year.ago, Time.now)
+          current_month = Time.now
+          (0..11).to_a.each do  |day|
+            current_month_trans = transactions.transactions_between(current_month - 1.months, current_month)
+             data_hash = {
+              :amount => current_month_trans.present? ? current_month_trans.sum(:amount) : 0,
+              :date => current_month,
+              :value_for => current_month.strftime('%b %y')
+             }
+             data << data_hash
+             current_month = current_month - 1.months
+            end
+        end
+      render json: { list: data, type: params[:type] }, status: 200
+    else
+      render json: {errors: ['incorrect or invalid params']}
+    end
   end
 
   private
@@ -117,7 +157,7 @@ class UsersController < ApplicationController
     if @user.nil?
       render json: { errors: ['user not found'] }, status: 400
     elsif @user.is_mobile_verified?
-      render json: { errors: ['user is already verified'] }, status: 400
+      render json: { errors: ['user is already verified'] }, status: 422
     end
   end
 

@@ -5,11 +5,13 @@ resources :users, only: [:index], :defaults => { :format => 'json' } do
       post 'generate_otp'
       post 'validate_otp'
       patch 'reset_password'
+      patch 'update_mobile_number'
       post 'registration'
       post 'login'
       get 'profile'
       put 'update'
       get 'transactions'
+      post 'graph_data'
     end
   end
   resources :qr_codes, only: [:create], :defaults => {:format => 'json' } do
