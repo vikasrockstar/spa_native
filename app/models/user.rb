@@ -8,7 +8,7 @@ class User < ApplicationRecord
   has_many :bank_accounts, dependent: :destroy
   has_many :transactions, dependent: :destroy
   has_one :wallet, dependent: :destroy
-  has_many :qrcodes
+  has_many :qr_codes
   validates :email, presence: true, uniqueness: { message: 'Id already exists' }
   validates :first_name, :last_name, presence: true
   validates :mobile_number, uniqueness: true,

@@ -12,7 +12,11 @@ resources :users, only: [:index], :defaults => { :format => 'json' } do
       get 'transactions'
     end
   end
-  resources :qrcodes
+  resources :qr_codes, only: [:create], :defaults => {:format => 'json' } do
+    collection do
+      get 'list'
+    end
+  end
   resources :bank_accounts, only: [:create, :show, :index, :destroy]
   namespace :api do
     namespace :v2 do

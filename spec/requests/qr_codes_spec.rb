@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Qrcodes", type: :request do
+RSpec.describe "QrCodes", type: :request do
   describe "GET /new" do
     it "returns http success" do
       get "/qrcodes/new"
