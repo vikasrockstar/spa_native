@@ -30,4 +30,6 @@ resources :users, only: [:index], :defaults => { :format => 'json' } do
       end
     end
   end
+
+  post '/webhooks/endpoint' => 'webhooks#endpoint'
 end

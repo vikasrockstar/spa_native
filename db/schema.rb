@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_28_144648) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_29_141923) do
   create_table "active_storage_attachments", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -69,7 +69,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_28_144648) do
 
   create_table "transactions", charset: "utf8mb4", force: :cascade do |t|
     t.float "amount"
-    t.bigint "bank_account_id", null: false
+    t.bigint "bank_account_id"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
