@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_29_141923) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_30_124231) do
   create_table "active_storage_attachments", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -96,6 +96,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_29_141923) do
     t.datetime "profile_picture_updated_at"
   end
 
+  create_table "wallet_histories", charset: "utf8mb4", force: :cascade do |t|
+    t.integer "updated_by_user"
+    t.float "previous_balance"
+    t.float "updated_balance"
+    t.string "checkout_session_object_id"
+    t.bigint "wallet_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["wallet_id"], name: "index_wallet_histories_on_wallet_id"
+  end
+
   create_table "wallets", charset: "utf8mb4", force: :cascade do |t|
     t.float "balance", default: 0.0
     t.bigint "user_id"
@@ -109,4 +120,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_29_141923) do
   add_foreign_key "qr_codes", "users"
   add_foreign_key "transactions", "bank_accounts"
   add_foreign_key "transactions", "users"
+  add_foreign_key "wallet_histories", "wallets"
 end
