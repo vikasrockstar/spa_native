@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   def registration
     user = User.new(new_user_params)
     if user.save
-      render json: user.filter_password, status: 201
+      render json: user.filter_attributes, status: 201
     else
       render json: { errors: user.errors.full_messages }, status: 422
     end
@@ -25,12 +25,12 @@ class UsersController < ApplicationController
 
   def profile
     token = JsonWebToken.encode(user_id: @current_user.id)
-    render json: @current_user.filter_password.merge!(image_data).merge!(wallet_data).merge!(token: token), status: 200
+    render json: @current_user.filter_attributes.merge!(image_data).merge!(wallet_data).merge!(token: token), status: 200
   end
 
   def reset_password
     if @user.update(password: params[:password])
-      render json: { user: @user.filter_password }, status: 200
+      render json: { user: @user.filter_attributes }, status: 200
     else
       render json: { errors: @user.errors.full_messages }, status: 422
     end
@@ -38,7 +38,7 @@ class UsersController < ApplicationController
 
   def generate_otp
     @user.send_auth_code
-    render json:  {user: @user.filter_password, message: 'otp sent to mobile number'}, status: 200
+    render json:  {user: @user.filter_attributes, message: 'otp sent to mobile number'}, status: 200
   end
 
   def validate_otp
@@ -47,7 +47,7 @@ class UsersController < ApplicationController
       @user.is_mobile_verified = true
       @user.save
       token = JsonWebToken.encode(user_id: @user.id)
-      render json: { user: @user.filter_password, token: token, message: 'successfully validated otp code' }, status: 200
+      render json: { user: @user.filter_attributes, token: token, message: 'successfully validated otp code' }, status: 200
     else
       render json: { errors: ['invalid otp code']}, status: 422
     end
@@ -55,7 +55,7 @@ class UsersController < ApplicationController
 
   def update_mobile_number
     if @user.update(mobile_params)
-      render json: { user: @user.filter_password }, status: 200
+      render json: { user: @user.filter_attributes }, status: 200
     else
       render json: { errors: @user.errors.full_messages }, status: 422
     end
@@ -63,7 +63,7 @@ class UsersController < ApplicationController
 
   def update
     if @current_user.update(update_params)
-      render json: { user: @current_user.filter_password }, status: 200
+      render json: { user: @current_user.filter_attributes }, status: 200
     else
       render json: { errors: @current_user.errors.full_messages }, status: 422
     end
