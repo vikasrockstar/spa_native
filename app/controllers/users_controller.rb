@@ -19,7 +19,7 @@ class UsersController < ApplicationController
       token = JsonWebToken.encode(user_id: @user.id)
       render json: { token: token }, status: :ok
     else
-      render json: { errors: ['Mobile number or password not found'] }, status: 400
+      render json: { errors: ['Mobile number or password is incorrect'] }, status: 400
     end
   end
 
@@ -88,7 +88,8 @@ class UsersController < ApplicationController
      data = []
      case params[:type]
         when "weekly"
-          transactions = @current_user.transactions.transactions_between(1.week.ago, Time.now)
+          # transactions = @current_user.transactions.transactions_between(1.week.ago, Time.now)
+          transactions = Transaction.all.transactions_between(1.week.ago, Time.now)
           current_day = Time.now
           (0..6).to_a.each do  |day|
             current_day_trans = transactions.transactions_between(current_day - 1.day, current_day)
@@ -102,7 +103,8 @@ class UsersController < ApplicationController
             end
 
         when "monthly"
-          transactions = @current_user.transactions.transactions_between(1.year.ago, Time.now)
+          # transactions = @current_user.transactions.transactions_between(1.year.ago, Time.now)
+          transactions = Transaction.all.transactions_between(1.year.ago, Time.now)
           current_month = Time.now
           (0..11).to_a.each do  |day|
             current_month_trans = transactions.transactions_between(current_month - 1.months, current_month)
