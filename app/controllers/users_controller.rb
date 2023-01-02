@@ -90,7 +90,7 @@ class UsersController < ApplicationController
         when "weekly"
           # transactions = @current_user.transactions.transactions_between(1.week.ago, Time.now)
           transactions = Transaction.all.transactions_between(1.week.ago, Time.now)
-          current_day = Time.now
+          current_day = Time.now.end_of_day
           (0..6).to_a.each do  |day|
             current_day_trans = transactions.transactions_between(current_day - 1.day, current_day)
              data_hash = {
@@ -105,7 +105,7 @@ class UsersController < ApplicationController
         when "monthly"
           # transactions = @current_user.transactions.transactions_between(1.year.ago, Time.now)
           transactions = Transaction.all.transactions_between(1.year.ago, Time.now)
-          current_month = Time.now
+          current_month = Time.now.end_of_month
           (0..11).to_a.each do  |day|
             current_month_trans = transactions.transactions_between(current_month - 1.months, current_month)
              data_hash = {
