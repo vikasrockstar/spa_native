@@ -26,4 +26,6 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  post '/version_manager', to: "home#version_manager"
 end
