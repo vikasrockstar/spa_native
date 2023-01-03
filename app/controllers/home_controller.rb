@@ -1,6 +1,4 @@
 class HomeController < ApplicationController
-  before_action :authorize_request, only:[:version_manager]
-
   def version_manager
       data = VersionManager.find_by(device_type: params["device_type"])
       if data.app_version != params['version']
