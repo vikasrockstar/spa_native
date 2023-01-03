@@ -17,13 +17,13 @@ class User < ApplicationRecord
                  :length => { :minimum => 8, :maximum => 10 }
 
   after_create :set_wallet
-  
+
   scope :unverified_users, -> { where(is_mobile_verified: false) }
 
   def send_auth_code
     options = {
       to: mobile_with_code,
-      body: "Your SPA Native Verification code is #{self.otp_code}. Please do not share it with anybody."
+      body: "Your SPA Native Verification code is #{otp_code}. Please do not share it with anybody."
     }
     SendCode.new.send_sms(options)
   end

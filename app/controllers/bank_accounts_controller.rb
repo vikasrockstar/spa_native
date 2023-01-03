@@ -2,25 +2,24 @@ class BankAccountsController < ApplicationController
   before_action :authorize_request, only: [:create, :show, :index, :destroy]
   before_action :set_bank_account, only: [:show, :destroy]
 
-	def create
-		bank_account = BankAccount.new(bank_details_params)
+  def create
+    bank_account = BankAccount.new(bank_details_params)
     bank_account.user_id = @current_user.id
-		if bank_account.save
-      deactive_other_bank_accounts(bank_account.id)
+    if bank_account.save
       render json: bank_account, status: 201
     else
       render json: { errors: bank_account.errors.full_messages }, status: 422
     end
-	end
+  end
 
-	def show
+  def show
     render json: @bank_account, status: 200
-	end
+  end
 
 	def index
-	  bank_accounts = @current_user.bank_accounts.order(is_active: :desc)
+    bank_accounts = @current_user.bank_accounts.order(is_active: :desc)
     render json: { list: bank_accounts }, status: 200
-	end
+  end
 
   def destroy
     activate_last_account = @bank_account.is_active
@@ -46,7 +45,7 @@ class BankAccountsController < ApplicationController
   end
 
   def deactive_other_bank_accounts(current_account_id)
-    other_active_bank_accounts =  @current_user.bank_accounts&.active_accounts&.where.not(id: current_account_id)
+    other_active_bank_accounts = @current_user.bank_accounts&.active_accounts&.where.not(id: current_account_id)
     other_active_bank_accounts&.update_all(is_active: false)
   end
 end
