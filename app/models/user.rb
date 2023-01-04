@@ -28,7 +28,7 @@ class User < ApplicationRecord
     SendCode.new.send_sms(options)
   end
 
-  def filter_password
+  def filter_attributes
     attributes.except('password_digest', 'otp_secret_key', 'otp_counter', 'profile_picture_file_name', 'profile_picture_content_type', 'profile_picture_file_size', 'profile_picture_updated_at')
   end
 

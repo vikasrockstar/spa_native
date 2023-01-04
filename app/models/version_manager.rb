@@ -1,0 +1,2 @@
+class VersionManager < ApplicationRecord
+end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_30_124231) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_02_111538) do
   create_table "active_storage_attachments", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -51,6 +51,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_30_124231) do
     t.datetime "updated_at", null: false
     t.string "ifsc_code"
     t.datetime "deleted_at"
+    t.string "frequency", default: "weekly"
     t.index ["deleted_at"], name: "index_bank_accounts_on_deleted_at"
   end
 
@@ -94,6 +95,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_30_124231) do
     t.string "profile_picture_content_type"
     t.bigint "profile_picture_file_size"
     t.datetime "profile_picture_updated_at"
+  end
+
+  create_table "version_managers", charset: "utf8mb4", force: :cascade do |t|
+    t.string "device_type"
+    t.string "app_version"
+    t.string "message"
+    t.boolean "is_force_update"
+    t.boolean "is_soft_update"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "wallet_histories", charset: "utf8mb4", force: :cascade do |t|

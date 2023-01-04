@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-resources :users, only: [:index], :defaults => { :format => 'json' } do
+  resources :users, only: [:index], :defaults => { :format => 'json' } do
     collection do
       post 'generate_otp'
       post 'validate_otp'
@@ -32,4 +32,5 @@ resources :users, only: [:index], :defaults => { :format => 'json' } do
   end
 
   post '/webhooks/endpoint' => 'webhooks#endpoint'
+  post '/version_manager', to: "home#version_manager"
 end
