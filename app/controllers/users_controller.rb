@@ -152,8 +152,12 @@ class UsersController < ApplicationController
   end
 
   def set_user
-    @user = User.find_by(mobile_number: params[:mobile_number], country_code: params[:country_code])
-    render json: { errors: ['user not found'] }, status: 400 if @user.nil?
+    @user = User.find_by(mobile_number: params[:mobile_number])
+    if @user.nil?
+      render json: { errors: ['Mobile number or password is incorrect'] }, status: 400
+    else
+      render json: { errors: ['user not found'] }, status: 400 if @user&.country_code != params[:country_code]
+    end
   end
   
   def check_email
