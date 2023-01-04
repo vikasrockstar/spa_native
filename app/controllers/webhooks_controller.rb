@@ -23,7 +23,7 @@ class WebhooksController < ApplicationController
 
   def check_webhook_authenticity
     begin
-      event = StripePayment.check_authenticity(request)
+      event = StripeService.check_authenticity(request)
     rescue
       render json: 'failure', status: 400
     end
