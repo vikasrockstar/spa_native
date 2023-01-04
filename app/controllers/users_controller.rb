@@ -155,8 +155,8 @@ class UsersController < ApplicationController
     @user = User.find_by(mobile_number: params[:mobile_number])
     if @user.nil?
       render json: { errors: ['Mobile number or password is incorrect'] }, status: 400
-    else
-      render json: { errors: ['user not found'] }, status: 400 if @user&.country_code != params[:country_code]
+    elsif @user.country_code != params[:country_code]
+      render json: { errors: ['user not found'] }, status: 400
     end
   end
   
