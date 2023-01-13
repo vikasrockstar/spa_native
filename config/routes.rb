@@ -15,7 +15,7 @@ Rails.application.routes.draw do
       post 'graph_data'
     end
   end
-  resources :bank_accounts, only: [:create, :show, :index, :destroy]
+  resources :bank_accounts, only: [:create, :show, :index, :destroy, :update]
   namespace :api do
     namespace :v2 do
       resources :users, only: [:index], :defaults => { :format => 'json' } do
