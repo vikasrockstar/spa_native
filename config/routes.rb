@@ -15,7 +15,11 @@ Rails.application.routes.draw do
       post 'graph_data'
     end
   end
-  resources :bank_accounts, only: [:create, :show, :index, :destroy]
+  resources :qrcodes
+  resources :webhooks
+  get 'users/:id', to: "users#show"
+  resources :stripe_accounts, only: [:create]
+  resources :bank_accounts, only: [:create, :show, :index, :destroy, :update]
   namespace :api do
     namespace :v2 do
       resources :users, only: [:index], :defaults => { :format => 'json' } do
@@ -24,6 +28,7 @@ Rails.application.routes.draw do
           put 'update'
         end
       end
+      # resources :webhooks, only: [:create]
     end
   end
 
