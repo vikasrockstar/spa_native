@@ -19,7 +19,7 @@ Rails.application.routes.draw do
       get 'list'
     end
   end
-  resources :bank_accounts, only: [:create, :show, :index, :destroy]
+  resources :bank_accounts, only: [:create, :show, :index, :destroy, :update]
   namespace :api do
     namespace :v2 do
       resources :users, only: [:index], :defaults => { :format => 'json' } do
@@ -33,4 +33,5 @@ Rails.application.routes.draw do
 
   post '/webhooks/endpoint' => 'webhooks#endpoint'
   post '/version_manager', to: "home#version_manager"
+  resources :transactions, only: [:create]
 end
