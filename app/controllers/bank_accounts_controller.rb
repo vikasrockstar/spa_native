@@ -1,6 +1,6 @@
 class BankAccountsController < ApplicationController
-  before_action :authorize_request, only: [:create, :show, :index, :destroy]
-  before_action :set_bank_account, only: [:show, :destroy]
+  before_action :authorize_request, only: [:create, :show, :index, :destroy, :update]
+  before_action :set_bank_account, only: [:show, :destroy, :update]
 
 	def create
 		bank_account = BankAccount.new(bank_details_params)
@@ -32,10 +32,18 @@ class BankAccountsController < ApplicationController
     end
   end
 
+  def update
+    if @bank_account.update(bank_details_params)
+      render json: { data: @bank_account, message: ['successfully updated'] }, status: 200
+    else
+      render json: { errors: @bank_account.errors.full_messages }, status: 422
+    end
+  end
+
   private
 
   def bank_details_params
-    params.require(:bank_account).permit(:bank_name, :account_holder_name, :account_number, :account_type, :address, :ifsc_code)
+    params.require(:bank_account).permit(:bank_name, :account_holder_name, :account_number, :account_type, :address, :ifsc_code, :frequency)
   end
 
   def set_bank_account
