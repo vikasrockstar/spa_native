@@ -24,6 +24,9 @@ Rails.application.routes.draw do
           put 'update'
         end
       end
+      get 'user_payment_link', to: 'generate_payment_links#user_payment_link'
+      resources :webhooks, only: [:create]
+      resources :payouts, only: [:create]
     end
   end
 end
