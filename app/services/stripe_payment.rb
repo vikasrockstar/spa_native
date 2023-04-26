@@ -2,6 +2,7 @@ require 'stripe'
 class StripePayment
   def initialize(user, amount=0, product_name='Plumber')
     # Stripe.api_key = ENV['STRIPE_SECRET_KEY']
+    amount *= 100
     @current_user = user
     @product = create_product(product_name)
     @product_price = create_product_price(amount)
