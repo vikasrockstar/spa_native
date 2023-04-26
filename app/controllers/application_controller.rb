@@ -1,4 +1,5 @@
-class ApplicationController < ActionController::API  
+class ApplicationController < ActionController::API
+  include ActiveStorage::SetCurrent
   def not_found
     render json: { errors: ['not_found'] }
   end

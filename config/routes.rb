@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  resources :users, only: [:index], :defaults => { :format => 'json' } do
+# Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+resources :users, only: [:index], :defaults => { :format => 'json' } do
     collection do
       post 'generate_otp'
       post 'validate_otp'
@@ -13,6 +12,11 @@ Rails.application.routes.draw do
       put 'update'
       get 'transactions'
       post 'graph_data'
+    end
+  end
+  resources :qr_codes, only: [:create], :defaults => {:format => 'json' } do
+    collection do
+      get 'list'
     end
   end
   resources :bank_accounts, only: [:create, :show, :index, :destroy, :update]
