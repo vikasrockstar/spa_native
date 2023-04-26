@@ -7,16 +7,16 @@ class Api::V2::UsersController < ApplicationController
     user = User.new(new_user_params)
     user.profile_picture.attach(params[:image])
     if user.save
-      render json: user.filter_password.merge!(image: user.profile_picture&.url), status: 201
+      render json: user.filter_attributes.merge!(image: user.profile_picture&.url), status: 201
     else
       render json: { errors: user.errors.full_messages }, status: 422
     end
   end
 
   def update
-    @current_user.profile_picture.attach(params[:image])
+    @current_user.profile_picture.attach(params[:image]) if params[:image].present?
     if @current_user.update(update_params)
-      render json: { user: @current_user.filter_password.merge!(image: @current_user.profile_picture&.url) }, status: 200
+      render json: { user: @current_user.filter_attributes.merge!(image: @current_user.profile_picture&.url) }, status: 200
     else
       render json: { errors: @current_user.errors.full_messages }, status: 422
     end

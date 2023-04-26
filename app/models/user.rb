@@ -14,7 +14,7 @@ class User < ApplicationRecord
   validates :mobile_number, uniqueness: true,
                  :numericality => true,
                  :presence => true,
-                 :length => { :minimum => 10, :maximum => 10 }
+                 :length => { :minimum => 8, :maximum => 10 }
 
   after_create :set_wallet
   
@@ -28,7 +28,7 @@ class User < ApplicationRecord
     SendCode.new.send_sms(options)
   end
 
-  def filter_password
+  def filter_attributes
     attributes.except('password_digest', 'otp_secret_key', 'otp_counter', 'profile_picture_file_name', 'profile_picture_content_type', 'profile_picture_file_size', 'profile_picture_updated_at')
   end
 

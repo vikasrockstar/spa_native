@@ -5,11 +5,13 @@ resources :users, only: [:index], :defaults => { :format => 'json' } do
       post 'generate_otp'
       post 'validate_otp'
       patch 'reset_password'
+      patch 'update_mobile_number'
       post 'registration'
       post 'login'
       get 'profile'
       put 'update'
       get 'transactions'
+      post 'graph_data'
     end
   end
   resources :qr_codes, only: [:create], :defaults => {:format => 'json' } do
@@ -17,7 +19,7 @@ resources :users, only: [:index], :defaults => { :format => 'json' } do
       get 'list'
     end
   end
-  resources :bank_accounts, only: [:create, :show, :index, :destroy]
+  resources :bank_accounts, only: [:create, :show, :index, :destroy, :update]
   namespace :api do
     namespace :v2 do
       resources :users, only: [:index], :defaults => { :format => 'json' } do
@@ -28,4 +30,7 @@ resources :users, only: [:index], :defaults => { :format => 'json' } do
       end
     end
   end
+
+  post '/version_manager', to: "home#version_manager"
+  resources :transactions, only: [:create]
 end
