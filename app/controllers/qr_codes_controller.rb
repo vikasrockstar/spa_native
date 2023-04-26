@@ -3,8 +3,8 @@ class QrCodesController < ApplicationController
 
   def create
     # Generate payment link from stripe api for given amount
-    payment_link = StripePayment.new(@current_user, params[:amount]).create_payment_link
-    payment_link = 'https://buy.stripe.com/test_6oE9BldBBgjy1oI9AG'
+    payment_link = StripePayment.new(@current_user, params[:amount], params[:product_name]).create_payment_link
+    # payment_link = 'https://buy.stripe.com/test_6oE9BldBBgjy1oI9AG'
     qr_code = @current_user.qr_codes.new(qr_code_params.merge!(url: payment_link))
     if qr_code.save
       # generate qr code image and attach to qr code
