@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_action :authorize_request, only: [:profile, :reset_password, :update, :transactions, :graph_data]
   before_action :set_user, only: [:login, :reset_password, :generate_otp, :validate_otp]
   before_action :check_email, only: [:update_mobile_number]
-  before_action :set_user_params, only: [:registration]
+  before_action :set_user_params, only: [:registration, :update_params]
   
   def registration
     user = User.new(new_user_params)
@@ -146,7 +146,7 @@ class UsersController < ApplicationController
   end
 
   def update_params
-    @user_params.require(:user).permit(:first_name, :last_name)
+    @user_params.require(:user).permit(:first_name, :last_name, :dob)
   end
 
   def mobile_params
