@@ -33,7 +33,8 @@ class Api::V2::UsersController < ApplicationController
         mobile_number: params[:mobile_number],
         country_code: params[:country_code],
         password: params[:password],
-        password_confirmation: params[:password_confirmation]
+        password_confirmation: params[:password_confirmation],
+        dob: params[:dob]
       }
     })
   end
@@ -43,6 +44,6 @@ class Api::V2::UsersController < ApplicationController
   end
 
   def update_params
-    @user_params.require(:user).permit(:first_name, :last_name)
+    @user_params.require(:user).permit(:first_name, :last_name, :dob)
   end
 end
