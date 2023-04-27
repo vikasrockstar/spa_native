@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_02_111538) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_27_070130) do
   create_table "active_storage_attachments", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -95,6 +95,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_02_111538) do
     t.string "profile_picture_content_type"
     t.bigint "profile_picture_file_size"
     t.datetime "profile_picture_updated_at"
+    t.date "dob"
   end
 
   create_table "version_managers", charset: "utf8mb4", force: :cascade do |t|
