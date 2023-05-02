@@ -26,7 +26,7 @@ class BankAccountsController < ApplicationController
     activate_last_account = @bank_account.is_active
     if @bank_account.destroy
       @current_user.bank_accounts&.last&.update(is_active: true) if activate_last_account
-      render json: { message: ['successfully deleted'] }, status: 200
+      render json: { message: 'successfully deleted' }, status: 200
     else
       render json: { errors: @bank_account.errors.full_messages }, status: 400
     end

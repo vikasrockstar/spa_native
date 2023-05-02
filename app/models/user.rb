@@ -17,6 +17,7 @@ class User < ApplicationRecord
                  :length => { :minimum => 8, :maximum => 10 }
 
   after_create :set_wallet
+  after_save :set_personal_payment_link
   
   scope :unverified_users, -> { where(is_mobile_verified: false) }
 
@@ -37,6 +38,16 @@ class User < ApplicationRecord
     wallet.save!
   end
 
+  def full_name
+    first_name + " " + last_name
+  end
+
+  def set_personal_payment_link
+    return if payment_link.present?
+
+    payment_link = StripePayment.new(self, 0, full_name, true).create_payment_link
+    update(payment_link: payment_link)
+  end
   private
 
   def mobile_with_code

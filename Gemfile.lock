@@ -241,6 +241,9 @@ GEM
     shoulda-matchers (3.1.3)
       activesupport (>= 4.0.0)
     stripe (8.0.0)
+    stripe_event (2.7.0)
+      activesupport (>= 3.1)
+      stripe (>= 2.8, < 9)
     terrapin (0.6.0)
       climate_control (>= 0.0.3, < 1.0)
     thor (1.2.1)
@@ -283,6 +286,7 @@ DEPENDENCIES
   rubocop
   shoulda-matchers (~> 3.1)
   stripe
+  stripe_event
   twilio-ruby
   tzinfo-data
 
