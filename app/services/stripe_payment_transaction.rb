@@ -16,7 +16,8 @@ class StripePaymentTransaction
   end
   
   def description
-    customer_detail = event.data.dig("data", "object", "customer_details")
-    "Customer #{customer_detail["name"]} with email #{customer_detail["email"]} has paid #{amount}"
+    event.data.dig("data", "object", "metadata", "payment_reason")
+    # customer_detail = event.data.dig("data", "object", "customer_details")
+    # "Customer #{customer_detail["name"]} with email #{customer_detail["email"]} has paid #{amount}"
   end
 end
