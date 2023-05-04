@@ -48,6 +48,12 @@ class User < ApplicationRecord
     payment_link = StripePayment.new(self, 0, full_name, true).create_payment_link
     update(payment_link: payment_link)
   end
+
+  def update_wallet(amount)
+    balance = wallet.balance + amount
+    wallet.update(balance: balance)
+  end
+
   private
 
   def mobile_with_code

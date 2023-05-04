@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_02_072950) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_03_102843) do
   create_table "active_storage_attachments", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -53,6 +53,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_02_072950) do
     t.datetime "deleted_at"
     t.string "frequency", default: "weekly"
     t.index ["deleted_at"], name: "index_bank_accounts_on_deleted_at"
+  end
+
+  create_table "events", charset: "utf8mb4", force: :cascade do |t|
+    t.json "data"
+    t.string "source"
+    t.string "event_type"
+    t.text "processing_errors"
+    t.integer "status", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "qr_codes", charset: "utf8mb4", force: :cascade do |t|
