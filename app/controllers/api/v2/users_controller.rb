@@ -34,16 +34,19 @@ class Api::V2::UsersController < ApplicationController
         country_code: params[:country_code],
         password: params[:password],
         password_confirmation: params[:password_confirmation],
-        dob: params[:dob]
+        dob: params[:dob],
+        address: params[:address],
+        business_id_card: params[:business_id_card],
+        about_me: params[:about_me]
       }
     })
   end
 
   def new_user_params
-    @user_params.require(:user).permit(:email, :password, :password_confirmation, :first_name, :last_name, :mobile_number, :country_code)
+    @user_params.require(:user).permit(:email, :password, :password_confirmation, :first_name, :last_name, :mobile_number, :country_code, :dob, :address)
   end
 
   def update_params
-    @user_params.require(:user).permit(:first_name, :last_name, :dob)
+    @user_params.require(:user).permit(:first_name, :last_name, :dob, :business_id_card, :about_me)
   end
 end
