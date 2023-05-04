@@ -142,11 +142,11 @@ class UsersController < ApplicationController
 
   def new_user_params
     @user_params.require(:user).permit(:email, :password, :password_confirmation, :first_name, :last_name,
-      :mobile_number, :country_code, :dob)
+      :mobile_number, :country_code, :dob, :address)
   end
 
   def update_params
-    @user_params.require(:user).permit(:first_name, :last_name, :dob)
+    @user_params.require(:user).permit(:first_name, :last_name, :dob, :business_id_card, :about_me)
   end
 
   def mobile_params

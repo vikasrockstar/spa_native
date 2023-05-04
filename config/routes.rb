@@ -33,5 +33,5 @@ Rails.application.routes.draw do
   end
 
   post '/version_manager', to: "home#version_manager"
-  resources :transactions, only: [:create]
+  resources :transactions, only: [:create, :index]
 end
