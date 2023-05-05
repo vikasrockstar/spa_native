@@ -4,6 +4,7 @@ class BankAccount < ApplicationRecord
   belongs_to :user
   before_create :active_account
   has_many :transactions
+  after_create :user_bank_activate
 
   validates :account_number,:presence => true,
                  :numericality => true,
@@ -18,5 +19,11 @@ class BankAccount < ApplicationRecord
 
   def active_account
     self.is_active = true
+  end
+  
+  def user_bank_activate
+    return if user.bank_added?
+    
+    user.update(bank_added: true)
   end
 end

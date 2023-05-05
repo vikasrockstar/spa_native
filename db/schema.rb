@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_04_121409) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_05_100518) do
   create_table "active_storage_attachments", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -110,6 +110,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_04_121409) do
     t.string "business_id_card"
     t.text "address"
     t.text "about_me"
+    t.boolean "bank_added", default: false
   end
 
   create_table "version_managers", charset: "utf8mb4", force: :cascade do |t|
