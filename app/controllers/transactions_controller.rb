@@ -21,6 +21,7 @@ class TransactionsController < ApplicationController
   def index
     page_number = params[:page_number].to_i
     transactions = @current_user.transactions
+    transactions = transactions.where('description LIKE ?', "%#{params[:search_term]}%") if params[:search_term].present?
     total_pages = transactions.count/PER_PAGE
     next_page = page_number >= total_pages - 1 ? -1 : page_number + 1
     transactions = transactions.order(created_at: :desc).offset(PER_PAGE*page_number).limit(PER_PAGE)
