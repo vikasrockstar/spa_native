@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   include ActiveStorage::SetCurrent
-  before_action :authorize_request, only: [:profile, :reset_password, :update, :transactions, :graph_data]
+  before_action :authorize_request, only: [:profile, :reset_password, :update, :transactions, :graph_data, :wallet]
   before_action :set_user, only: [:login, :reset_password, :generate_otp, :validate_otp]
   before_action :check_email, only: [:update_mobile_number]
   before_action :set_user_params, only: [:registration, :update_params]
@@ -123,6 +123,9 @@ class UsersController < ApplicationController
     end
   end
 
+  def wallet
+    render json: { wallet: @current_user.wallet.balance }, status: 200
+  end
   private
 
   def set_user_params

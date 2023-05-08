@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       get 'profile'
       put 'update'
       get 'transactions'
+      get 'wallet'
       post 'graph_data'
     end
   end
