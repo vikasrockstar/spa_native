@@ -8,7 +8,7 @@ class StripePaymentTransaction
   
   attr_reader :user, :event, :amount
   def add_to_wallet
-    return if user.blank? || user.bank_accounts.blank?
+    return if user.blank?
 
     user.transactions.create!(amount: amount, description: description, bank_account: user.bank_accounts.active_accounts.first )
     user.update_wallet(amount)
