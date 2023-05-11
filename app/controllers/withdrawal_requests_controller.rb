@@ -7,7 +7,7 @@ class WithdrawalRequestsController < ApplicationController
   end
 
   def create
-    withdrawal_request = @current_user.withdrawal_requests.new(new_withdrawal_request_params)
+    withdrawal_request = @current_user.withdrawal_requests.new(amount: params[:amount].to_f)
     if withdrawal_request.save
       render json: withdrawal_request, status: 201
     else
