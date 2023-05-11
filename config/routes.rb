@@ -35,5 +35,6 @@ Rails.application.routes.draw do
 
   post '/version_manager', to: "home#version_manager"
   resources :transactions, only: [:create, :index]
+  resources :withdrawal_requests, only: [:create, :index]
   get '/graph_data', to: 'transactions#graph_data'
 end
