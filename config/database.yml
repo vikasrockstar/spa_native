@@ -49,7 +49,8 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  <<: *default
+  adapter: postgresql
+  encoding: unicode
   database: spa_native_production
   username: spa_native
   password: <%= ENV["SPA_NATIVE_DATABASE_PASSWORD"] %>

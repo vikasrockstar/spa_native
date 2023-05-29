@@ -6,8 +6,6 @@ ruby "3.0.0"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.4"
 
-# Use mysql as the database for Active Record
-gem "mysql2", "~> 0.5"
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"
@@ -69,12 +67,14 @@ group :development, :test do
   gem 'shoulda-matchers', '~> 3.1'
   gem "faker"
   gem 'database_cleaner'
+  # Use mysql as the database for Active Record
+  gem "mysql2", "~> 0.5"
   gem 'pry'
   gem 'rubocop'
 end
 
-group :development do
+group :production do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
-  # gem "spring"
+  gem "pg"
 end
 
