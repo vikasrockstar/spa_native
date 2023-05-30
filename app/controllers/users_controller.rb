@@ -19,7 +19,7 @@ class UsersController < ApplicationController
       token = JsonWebToken.encode(user_id: @user.id)
       render json: { token: token }, status: :ok
     else
-      render json: { errors: ['Mobile number or password is incorrect'] }, status: 400
+      render json: { errors: ['password is incorrect'] }, status: 400
     end
   end
 
@@ -74,7 +74,7 @@ class UsersController < ApplicationController
     # total_transactions = @current_user.transactions.count
     total_transactions = Transaction.all.count
     total_pages = total_transactions/per_page
-    next_page = (page_number >= total_pages -1) ? -1 : page_number+1
+    next_page = (page_number >= total_pages - 1) ? -1 : page_number+1
     # transactions = @current_user.transactions.order(created_at: :desc).offset(per_page*page_number).limit(per_page)
     transactions = transactions = Transaction.all.order(created_at: :desc).offset(per_page*page_number).limit(per_page)
     render json: { list: transactions, page_number: next_page }, status: 200
@@ -159,7 +159,7 @@ class UsersController < ApplicationController
   def set_user
     @user = User.find_by(mobile_number: params[:mobile_number])
     if @user.nil?
-      render json: { errors: ['Mobile number or password is incorrect'] }, status: 400
+      render json: { errors: ['Mobile number is incorrect'] }, status: 400
     elsif @user.country_code != params[:country_code]
       render json: { errors: ['user not found'] }, status: 400
     end
