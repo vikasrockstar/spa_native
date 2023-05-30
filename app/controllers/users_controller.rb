@@ -161,7 +161,7 @@ class UsersController < ApplicationController
     if @user.nil?
       render json: { errors: ['Mobile number is incorrect'] }, status: 400
     elsif @user.country_code != params[:country_code]
-      render json: { errors: ['user not found'] }, status: 400
+      render json: { errors: ['Country code is incorrect'] }, status: 400
     end
   end
   
