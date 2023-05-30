@@ -29,13 +29,13 @@ class StripePayment
 
   def create_product_price(amount)
     Stripe::Price.create(
-      { currency: 'inr', unit_amount: amount, product: @product['id'] }
+      { currency: 'aed', unit_amount: amount, product: @product['id'] }
     )
   end
 
   def create_custom_price
     Stripe::Price.create(
-      { currency: 'inr', custom_unit_amount: {enabled: true}, product: @product['id'] }
+      { currency: 'aed', custom_unit_amount: {enabled: true}, product: @product['id'] }
     )
   end
   
