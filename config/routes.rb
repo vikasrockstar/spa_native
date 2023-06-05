@@ -37,4 +37,5 @@ Rails.application.routes.draw do
   resources :transactions, only: [:create, :index]
   resources :withdrawal_requests, only: [:create, :index]
   get '/graph_data', to: 'transactions#graph_data'
+  get '/user_payment', to: 'payments#index'
 end

@@ -1,0 +1,15 @@
+<% if @user.profile_picture.attached? %>
+  <%= image_tag @user.profile_picture, alt: "Profile Picture" %>
+<% else %>
+  <%= image_tag "https://i.pinimg.com/originals/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg", size: "200x200", alt: "Default Profile Picture" %>
+<% end %>
+<p><%= @user.full_name%></p>
+<p><%= @user.about_me%></p>
+<hr>
+<h5>Amount</h5>
+<%= text_field_tag 'amount' %>
+<h5>Rating</h5>
+*****
+<h5>Review</h5>
+<%= text_field_tag 'review' %>
+<%= button_tag 'Pay', type: 'submit'%>
