@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_11_093509) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_05_083916) do
   create_table "active_storage_attachments", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -76,6 +76,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_11_093509) do
     t.bigint "image_file_size"
     t.datetime "image_updated_at"
     t.index ["user_id"], name: "index_qr_codes_on_user_id"
+  end
+
+  create_table "reviews", charset: "utf8mb4", force: :cascade do |t|
+    t.integer "rating"
+    t.text "review"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
   create_table "transactions", charset: "utf8mb4", force: :cascade do |t|
@@ -144,6 +153,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_11_093509) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "qr_codes", "users"
+  add_foreign_key "reviews", "users"
   add_foreign_key "transactions", "users"
   add_foreign_key "withdrawal_requests", "users"
 end

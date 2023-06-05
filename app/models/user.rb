@@ -10,6 +10,7 @@ class User < ApplicationRecord
   has_one :wallet, dependent: :destroy
   has_many :qr_codes
   has_many :withdrawal_requests
+  has_many :reviews
   validates :email, presence: true, uniqueness: { message: 'Id already exists' }
   validates :first_name, :last_name, presence: true
   validates :mobile_number, uniqueness: true,
@@ -55,6 +56,12 @@ class User < ApplicationRecord
     wallet.update(balance: balance)
   end
 
+  def personal_rating
+    return 0 if reviews.blank?
+    rating = 0
+    reviews.each{|review| rating+= review.rating.to_f}
+    rating/reviews.count
+  end
   private
 
   def mobile_with_code
