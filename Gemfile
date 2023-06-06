@@ -58,6 +58,9 @@ gem "rqrcode", "~> 2.1"
 gem "chunky_png", "~> 1.4"
 
 gem 'stripe'
+gem 'sass-rails'
+gem 'uglifier'
+gem 'coffee-rails'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
