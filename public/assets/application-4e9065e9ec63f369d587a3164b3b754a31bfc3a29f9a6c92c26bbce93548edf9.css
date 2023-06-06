@@ -92,26 +92,6 @@ input #amount {
 input, .star-rating {
   margin-bottom: 2%;
 }
-
-.star-rating {
-  font-size: 24px;
-  color: #ccc;
-}
-
-.star {
-  display: inline-block;
-  cursor: pointer;
-}
-
-.star:hover,
-.star.active {
-  color: gold;
-}
-
-#payment_rating {
-  display: none;
-}
-
 input[type='text'] {
   font-family: 'Poppins', sans-serif;
 }

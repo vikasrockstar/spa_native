@@ -1,0 +1,347 @@
+body {
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  /* margin: 120px; */
+}
+
+.test-panel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.form {
+  width: 80%;
+}
+
+input {
+  padding: 5px 10px;
+  border: 1px solid rgba(124, 141, 166, 0.2);
+  border-radius: 1px;
+}
+
+.pro {
+  /* margin-left: 17%; */
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.line {
+  position: inherit;
+  width: 61%;
+  height: 0px;
+  /* margin-left: 20.5%; */
+  border: 1px solid #A5B4CB;
+  margin-top: 3%;
+  margin-bottom: 7%;
+}
+.circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+body {
+  margin: 10%;
+}
+.rateme {
+  /* margin-left: 34%; */
+  font-family: Poppins;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 13px;
+  letter-spacing: -0.03em;
+  text-align: left;
+  color: #A5B4CB;
+}
+.abtme {
+  /* margin-left: 3%; */
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 13px;
+  letter-spacing: -0.03em;
+  text-align: center;
+  position: inherit;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 13px;
+  /* or 133% */
+  letter-spacing: -0.03em;
+  color: #7C8DA6;
+}
+.name {
+  /* margin-left: 30%; */
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 32px;
+  letter-spacing: -0.03em;
+  text-align: left;
+}
+input #amount {
+  box-sizing: border-box;
+  position: absolute;
+  width: 294px;
+  height: 25px;
+  left: 41px;
+  bottom: 373px;
+  border: 1px solid rgba(124, 141, 166, 0.2);
+  border-radius: 1px;
+}
+.writeamt {
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: -0.03em;
+  text-align: left;
+  margin: 0%;
+}
+.rateplz {
+  margin: 0%;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: -0.03em;
+  text-align: left;
+}
+.reviewplz {
+  /* margin: 0%; */
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: -0.03em;
+  text-align: left;
+}
+input {
+  width: 100%;
+  margin-bottom: 2%;
+}
+button {
+  /* height: 56px;
+  width: 100%;
+  margin-top: 16%;
+  border-radius: 100px; */
+  background-color: #111111;
+  color: #FFFFFF;
+  border-radius: 100px;
+  padding: 10px 40px;
+  /* position: inherit;
+  left: 45.67%;
+  right: 45.97%;
+  top: 37.5%;
+  bottom: 35.71%;
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 100%; */
+  /* identical to box height, or 15px */
+  /* text-align: center;
+  letter-spacing: -0.02em; */
+  /* Primary / White */
+}
+#star {
+  width: 102%;
+  border: none;
+}
+@media screen and (max-width: 226px) {
+/* Adjust the styles for screens up to 768px wide */
+.pro {
+  margin-left: 26%;
+  width: 150px;
+  height: 150px;
+  margin-bottom:3%
+}
+.circle{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  }
+.line {
+  width: 80%;
+  margin-left: 10%;
+}
+.name,
+.rateme,
+.abtme {
+  /* margin-left: 1%; */
+  text-align: center;
+}
+input#amount {
+  width: 100%;
+  left: 10%;
+}
+button {
+  /* margin-top: 8%;
+  left: 27%;
+  right: 27%;
+  top: 30%;
+  bottom: 28.57%; */
+}
+}
+@media screen and (max-width: 426px) {
+/* Adjust the styles for screens up to 426px wide */
+.pro {
+  width: 120px;
+  height: 120px;
+}
+.line {
+  width: 90%;
+  margin-left: 5%;
+}
+.name,
+.rateme {
+  /* margin-left: 5%; */
+  text-align: center;
+}
+.abtme {
+  text-align: justify;
+}
+input#amount{
+  width: 100%;
+  left: 5%;
+}
+button{
+  /* margin-top: 6%;
+  left: 20%;
+  right: 20%;
+  top: 25%;
+  bottom: 23.81%; */
+}
+}
+/* @media screen and (max-width: 426px) { */
+/* Adjust the styles for screens up to 426px wide */
+/* .pro {
+  margin-left: 36%;
+  width: 120px;
+  height: 120px;
+}
+.line {
+  width: 90%;
+  margin-left: 5%;
+}
+.name,
+.rateme,
+.abtme {
+  margin-left: 5%;
+  text-align: center;
+}
+input#amount{
+  width: 100%;
+  left: 5%;
+}
+button{
+  margin-top: 6%;
+  left: 20%;
+  right: 20%;
+  top: 25%;
+  bottom: 23.81%;
+}
+} */
+@media screen and (min-width: 727px) {
+/* Adjust the styles for screens up to 768px wide */
+.pro {
+  /* margin-left: 40%; */
+  width: 150px;
+  height: 150px;
+  margin-bottom:3%
+}
+.circle{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  }
+.line {
+  width: 80%;
+  /* margin-left: 10%; */
+}
+.name,
+.rateme,
+.abtme {
+  /* margin-left: 1%; */
+  text-align: center;
+}
+input#amount {
+  width: 100%;
+  left: 10%;
+}
+button {
+  /* margin-top: 8%;
+  left: 27%;
+  right: 27%;
+  top: 30%;
+  bottom: 28.57%; */
+}
+}
+@media screen and (min-width: 1200px) {
+/* Adjust the styles for screens up to 768px wide */
+.pro {
+  /* margin-left: 43%; */
+  width: 150px;
+  height: 150px;
+  margin-bottom:3%
+}
+.circle{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  }
+.line {
+  width: 80%;
+  /* margin-left: 10%; */
+}
+.name,
+.rateme,
+.abtme {
+  /* margin-left: 1%; */
+  text-align: center;
+}
+input#amount {
+  width: 100%;
+  left: 10%;
+}
+button {
+  /* margin-top: 8%;
+  left: 27%;
+  right: 27%;
+  top: 30%;
+  bottom: 28.57%; */
+}
+}
+@media screen and (min-width: 1500px) {
+/* Adjust the styles for screens up to 768px wide */
+.pro {
+  /* margin-left: 45%; */
+  width: 150px;
+  height: 150px;
+  margin-bottom:3%
+}
+.circle{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  }
+.line {
+  width: 80%;
+  /* margin-left: 10%; */
+}
+.name,
+.rateme,
+.abtme {
+  /* margin-left: 1%; */
+  text-align: center;
+  font-size: 17px;
+}
+input#amount {
+  width: 100%;
+  left: 10%;
+}
+button {
+  /* margin-top: 8%;
+  left: 27%;
+  right: 27%;
+  top: 30%;
+  bottom: 28.57%; */
+}
+}
+
