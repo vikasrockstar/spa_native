@@ -7,12 +7,12 @@
     <% end %>
   <%# </div> %>
   <p class = "name"><%= @user.full_name%></p>
-  <p class = "rateme"><%= @user.personal_rating%>*| Ratings</p>
+  <p class = "rateme"><%= @user.personal_rating.round(2)%>*| Ratings</p>
   <p class = "abtme"><%= @user.about_me%></p>
   <%= image_tag "https://www.google.com/url?sa=i&url=https%3A%2F%2Ficones.pro%2Fen%2Fgray-line-icon-png-symbol%2F&psig=AOvVaw2rzlnRybjNEiXXCO-dPKZ3&ust=1686080134376000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCJjBs43wrP8CFQAAAAAdAAAAABAE", width: "20x2",  class: "line" %>
   <%= form_for :payment, url: "payments/pay_link", class: "form" do |form| %>
-    <h5 class = "writeamt">Amount</h5>
-    <%= form.text_field :amount %>
+    <h5 class = "writeamt">Amount (AED)</h5>
+    <%= form.number_field :amount %>
     <h5 class = "rateplz">Rating</h5>
     <%= form.text_field :rating %>
     <div class="star-rating">
@@ -21,7 +21,10 @@
       <% end%>
     </div>
     <h5 class = "reviewplz">Review</h5>
-    <%= text_field_tag 'review'  %>
+    <%= form.text_field 'review'  %>
+    <%= hidden_field(:payment, :product_name, value: params[:product_name]) %>
+    <%= hidden_field(:user, :payment_link) %>
+    <%= hidden_field(:user, :id) %>
     <br>
     <%= button_tag 'Pay', type: 'submit'%>
   <% end  %>

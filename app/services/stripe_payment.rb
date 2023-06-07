@@ -1,6 +1,6 @@
 require 'stripe'
 class StripePayment
-  def initialize(user, amount=0, product_name='Plumber', custom_price=false)
+  def initialize(user, amount = 0, product_name = 'Personal QR', custom_price = false, metadata={})
     # Stripe.api_key = ENV['STRIPE_SECRET_KEY']
     amount *= 100
     @current_user = user
@@ -8,6 +8,7 @@ class StripePayment
     @product = create_product
     @custom_price = custom_price
     @product_price = custom_price ? create_custom_price : create_product_price(amount)
+    @metadata = metadata
   end
 
   attr_reader :product_name, :custom_price
@@ -15,9 +16,9 @@ class StripePayment
   def create_payment_link
     payment_link = Stripe::PaymentLink.create(
       {
-        line_items: [{price: @product_price['id'], quantity: 1}],
-        metadata: { reciever_user_id: @current_user.id, payment_reason: payment_reason},
-        after_completion: {type: 'redirect', redirect: {url: 'https://example.com'}}
+        line_items: [{ price: @product_price['id'], quantity: 1 }],
+        metadata: { reciever_user_id: @current_user.id, payment_reason: payment_reason}.merge(@metadata),
+        after_completion: { type: 'redirect', redirect: { url: "#{ENV['BASE_URL']}/thanks" } }
       }
     )
     payment_link['url']

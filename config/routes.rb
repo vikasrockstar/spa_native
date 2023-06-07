@@ -38,4 +38,6 @@ Rails.application.routes.draw do
   resources :withdrawal_requests, only: [:create, :index]
   get '/graph_data', to: 'transactions#graph_data'
   get '/user_payment', to: 'payments#index'
+  get '/thanks', to: 'payments#thanks'
+  post 'payments/pay_link', to: 'payments#pay_link'
 end
