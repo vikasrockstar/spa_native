@@ -12,7 +12,8 @@
   <%= image_tag "https://www.google.com/url?sa=i&url=https%3A%2F%2Ficones.pro%2Fen%2Fgray-line-icon-png-symbol%2F&psig=AOvVaw2rzlnRybjNEiXXCO-dPKZ3&ust=1686080134376000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCJjBs43wrP8CFQAAAAAdAAAAABAE", width: "20x2",  class: "line" %>
   <%= form_for :payment, url: "payments/pay_link", class: "form" do |form| %>
     <h5 class = "writeamt">Amount (AED)</h5>
-    <%= form.number_field :amount %>
+    <%disabled = params[:amount].present?%>
+    <%= form.number_field :amount, disabled: disabled, value: params[:amount] %>
     <h5 class = "rateplz">Rating</h5>
     <%= form.text_field :rating %>
     <div class="star-rating">

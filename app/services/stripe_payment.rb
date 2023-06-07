@@ -4,7 +4,7 @@ class StripePayment
     # Stripe.api_key = ENV['STRIPE_SECRET_KEY']
     amount *= 100
     @current_user = user
-    @product_name = product_name
+    @product_name = product_name || 'Personal QR'
     @product = create_product
     @custom_price = custom_price
     @product_price = custom_price ? create_custom_price : create_product_price(amount)

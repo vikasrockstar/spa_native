@@ -47,7 +47,8 @@ class User < ApplicationRecord
   def set_personal_payment_link
     return if payment_link.present?
 
-    payment_link = StripePayment.new(self, 0, full_name, true).create_payment_link
+    # payment_link = StripePayment.new(self, 0, full_name, true).create_payment_link
+    payment_link = ENV['BASE_URL'] + "/user_payment?user_id=#{id}&product_name=Personal%20QR"
     update(payment_link: payment_link)
   end
 
