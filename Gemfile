@@ -49,6 +49,7 @@ gem 'twilio-ruby'
 
 # For kepping secret credentials
 gem 'dotenv-rails'
+gem "aws-sdk-s3", require: false
 
 # for soft delete records
 gem 'acts_as_paranoid'

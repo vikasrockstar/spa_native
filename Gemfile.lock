@@ -73,6 +73,22 @@ GEM
       activerecord (>= 5.2, < 7.1)
       activesupport (>= 5.2, < 7.1)
     ast (2.4.2)
+    aws-eventstream (1.2.0)
+    aws-partitions (1.776.0)
+    aws-sdk-core (3.174.0)
+      aws-eventstream (~> 1, >= 1.0.2)
+      aws-partitions (~> 1, >= 1.651.0)
+      aws-sigv4 (~> 1.5)
+      jmespath (~> 1, >= 1.6.1)
+    aws-sdk-kms (1.66.0)
+      aws-sdk-core (~> 3, >= 3.174.0)
+      aws-sigv4 (~> 1.1)
+    aws-sdk-s3 (1.123.1)
+      aws-sdk-core (~> 3, >= 3.174.0)
+      aws-sdk-kms (~> 1)
+      aws-sigv4 (~> 1.4)
+    aws-sigv4 (1.5.2)
+      aws-eventstream (~> 1, >= 1.0.2)
     bcrypt (3.1.18)
     bootsnap (1.13.0)
       msgpack (~> 1.2)
@@ -127,6 +143,7 @@ GEM
     io-console (0.5.11)
     irb (1.4.2)
       reline (>= 0.3.0)
+    jmespath (1.6.2)
     json (2.6.2)
     jwt (2.5.0)
     kt-paperclip (6.4.2)
@@ -295,6 +312,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_otp
   acts_as_paranoid
+  aws-sdk-s3
   bcrypt (~> 3.1.7)
   bootsnap
   chunky_png (~> 1.4)
