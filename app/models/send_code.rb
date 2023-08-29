@@ -9,6 +9,6 @@ class SendCode
   end
 
   def send_sms(options = {})
-    # @client.messages.create(to: options[:to], body: options[:body], from: @from)
+    @client.messages.create(to: options[:to], body: options[:body], from: @from)
   end
 end

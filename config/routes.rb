@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-# Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   resources :users, only: [:index], :defaults => { :format => 'json' } do
     collection do
       post 'generate_otp'
@@ -20,7 +19,7 @@ Rails.application.routes.draw do
       get 'list'
     end
   end
-  post 'webhooks/:source', to: 'webhooks#create'
+  post 'webhook/stripe', to: 'webhooks#create'
   resources :bank_accounts, only: [:create, :show, :index, :destroy, :update]
   namespace :api do
     namespace :v2 do

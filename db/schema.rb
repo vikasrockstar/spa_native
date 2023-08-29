@@ -132,6 +132,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_05_083916) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "wallet_histories", charset: "utf8mb4", force: :cascade do |t|
+    t.integer "updated_by_user"
+    t.float "previous_balance"
+    t.float "updated_balance"
+    t.string "checkout_session_object_id"
+    t.bigint "wallet_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["wallet_id"], name: "index_wallet_histories_on_wallet_id"
+  end
+
   create_table "wallets", charset: "utf8mb4", force: :cascade do |t|
     t.float "balance", default: 0.0
     t.bigint "user_id"
@@ -155,5 +166,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_05_083916) do
   add_foreign_key "qr_codes", "users"
   add_foreign_key "reviews", "users"
   add_foreign_key "transactions", "users"
+  add_foreign_key "wallet_histories", "wallets"
   add_foreign_key "withdrawal_requests", "users"
 end

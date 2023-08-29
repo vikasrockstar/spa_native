@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:login, :reset_password, :generate_otp, :validate_otp]
   before_action :check_email, only: [:update_mobile_number]
   before_action :set_user_params, only: [:registration, :update_params]
-  
+
   def registration
     user = User.new(new_user_params)
     if user.save
@@ -42,8 +42,7 @@ class UsersController < ApplicationController
   end
 
   def validate_otp
-    @user.authenticate_otp(params[:otp_code], auto_increment: true)
-    if params[:otp_code] == '1234'
+    if @user.authenticate_otp(params[:otp_code], auto_increment: true)
       @user.is_mobile_verified = true
       @user.save
       token = JsonWebToken.encode(user_id: @user.id)
@@ -70,13 +69,11 @@ class UsersController < ApplicationController
   end
 
   def transactions
-    per_page, page_number = [ 10, params[:page_number].to_i ]
-    # total_transactions = @current_user.transactions.count
-    total_transactions = Transaction.all.count
+    per_page, page_number = [ 100, params[:page_number].to_i ]
+    total_transactions = @current_user.transactions.count
     total_pages = total_transactions/per_page
     next_page = (page_number >= total_pages - 1) ? -1 : page_number+1
-    # transactions = @current_user.transactions.order(created_at: :desc).offset(per_page*page_number).limit(per_page)
-    transactions = transactions = Transaction.all.order(created_at: :desc).offset(per_page*page_number).limit(per_page)
+    transactions = @current_user.transactions.order(created_at: :desc).offset(per_page*page_number).limit(per_page)
     render json: { list: transactions, page_number: next_page }, status: 200
   rescue
     render json: { errors: ['Invalid parameters']}, status: 200
@@ -88,8 +85,7 @@ class UsersController < ApplicationController
      data = []
      case params[:type]
         when "weekly"
-          # transactions = @current_user.transactions.transactions_between(1.week.ago, Time.now)
-          transactions = Transaction.all.transactions_between(1.week.ago, Time.now)
+          transactions = @current_user.transactions.transactions_between(1.week.ago, Time.now)
           current_day = Time.now.end_of_day
           (0..6).to_a.each do  |day|
             current_day_trans = transactions.transactions_between(current_day - 1.day, current_day)
@@ -103,8 +99,7 @@ class UsersController < ApplicationController
             end
 
         when "monthly"
-          # transactions = @current_user.transactions.transactions_between(1.year.ago, Time.now)
-          transactions = Transaction.all.transactions_between(1.year.ago, Time.now)
+          transactions = @current_user.transactions.transactions_between(1.year.ago, Time.now)
           current_month = Time.now.end_of_month
           (0..11).to_a.each do  |day|
             current_month_trans = transactions.transactions_between(current_month - 1.months, current_month)
