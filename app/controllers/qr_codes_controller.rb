@@ -1,4 +1,6 @@
 class QrCodesController < ApplicationController
+
+  BASE_URL = ENV['BASE_URL']
   before_action :authorize_request, only: [:create, :list]
 
   def create
@@ -34,6 +36,6 @@ class QrCodesController < ApplicationController
   end
   
   def generate_payment_link
-    ENV['BASE_URL'] + "/user_payment?user_id=#{@current_user.id}&product_name=#{params[:product_name].gsub(" ", "%20")}&amount=#{params[:amount]}"
+    "#{BASE_URL}/user_payment?user_id=#{@current_user.id}&product_name=#{params[:product_name].gsub(" ", "%20")}&amount=#{params[:amount]}"
   end
 end

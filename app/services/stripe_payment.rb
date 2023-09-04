@@ -1,5 +1,8 @@
 require 'stripe'
 class StripePayment
+
+  BASE_URL = ENV['BASE_URL']
+
   def initialize(user, amount = 0, product_name = 'Personal QR', custom_price = false, metadata={})
     # Stripe.api_key = ENV['STRIPE_SECRET_KEY']
     amount *= 100
@@ -18,7 +21,7 @@ class StripePayment
       {
         line_items: [{ price: @product_price['id'], quantity: 1 }],
         metadata: { reciever_user_id: @current_user.id, payment_reason: payment_reason}.merge(@metadata),
-        after_completion: { type: 'redirect', redirect: { url: "#{ENV['BASE_URL']}/thanks" } }
+        after_completion: { type: 'redirect', redirect: { url: "#{BASE_URL}/thanks" } }
       }
     )
     payment_link['url']
@@ -39,7 +42,7 @@ class StripePayment
       { currency: 'aed', custom_unit_amount: {enabled: true}, product: @product['id'] }
     )
   end
-  
+
   def payment_reason
     if custom_price
       'Personal QR'

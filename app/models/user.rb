@@ -1,5 +1,7 @@
 class User < ApplicationRecord
   require File.join File.dirname(__FILE__), 'send_code'
+
+  BASE_URL = ENV['BASE_URL']
   
   has_secure_password
   has_one_time_password length: 4, counter_based: true
@@ -20,7 +22,7 @@ class User < ApplicationRecord
 
   after_create :set_wallet
   after_save :set_personal_payment_link
-  
+
   scope :unverified_users, -> { where(is_mobile_verified: false) }
 
   def send_auth_code
@@ -48,7 +50,7 @@ class User < ApplicationRecord
     return if payment_link.present?
 
     # payment_link = StripePayment.new(self, 0, full_name, true).create_payment_link
-    payment_link = ENV['BASE_URL'] + "/user_payment?user_id=#{id}&product_name=Personal%20QR"
+    payment_link = "#{BASE_URL}/user_payment?user_id=#{id}&product_name=Personal%20QR"
     update(payment_link: payment_link)
   end
 
@@ -63,6 +65,7 @@ class User < ApplicationRecord
     reviews.each{|review| rating+= review.rating.to_f}
     rating/reviews.count
   end
+
   private
 
   def mobile_with_code
