@@ -14,7 +14,7 @@ class User < ApplicationRecord
   has_many :withdrawal_requests
   has_many :reviews
   validates :email, presence: true, uniqueness: { message: 'Id already exists' }
-  validates :first_name, :last_name, presence: true
+  validates :first_name, :last_name, :country_chars, :country_code, presence: true
   validates :mobile_number, uniqueness: true,
                  :numericality => true,
                  :presence => true,
@@ -31,6 +31,14 @@ class User < ApplicationRecord
       body: "Your SPA Native Verification code is #{self.otp_code}. Please do not share it with anybody."
     }
     SendCode.new.send_sms(options)
+  end
+
+  def profile_picture_url
+    if self.profile_picture.attached?
+      Rails.application.routes.url_helpers.url_for(self.profile_picture)
+    else
+      nil
+    end
   end
 
   def filter_attributes

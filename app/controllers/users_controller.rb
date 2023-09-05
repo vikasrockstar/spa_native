@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_action :authorize_request, only: [:profile, :reset_password, :update, :transactions, :graph_data, :wallet]
   before_action :set_user, only: [:login, :reset_password, :generate_otp, :validate_otp]
   before_action :check_email, only: [:update_mobile_number]
-  before_action :set_user_params, only: [:registration, :update_params]
+  before_action :set_user_params, only: [:registration, :update]
 
   def registration
     user = User.new(new_user_params)
@@ -132,6 +132,7 @@ class UsersController < ApplicationController
         last_name: params[:last_name],
         mobile_number: params[:mobile_number],
         country_code: params[:country_code],
+        country_chars: params[:country_chars],
         password: params[:password],
         password_confirmation: params[:password_confirmation],
         dob: params[:dob]
@@ -141,7 +142,7 @@ class UsersController < ApplicationController
 
   def new_user_params
     @user_params.require(:user).permit(:email, :password, :password_confirmation, :first_name, :last_name,
-      :mobile_number, :country_code, :dob, :address)
+      :mobile_number, :country_code, :country_chars, :dob, :address)
   end
 
   def update_params
@@ -149,7 +150,7 @@ class UsersController < ApplicationController
   end
 
   def mobile_params
-    params.require(:user).permit(:mobile_number, :country_code)
+    params.require(:user).permit(:mobile_number, :country_code, :country_chars)
   end
 
   def set_user
@@ -172,7 +173,7 @@ class UsersController < ApplicationController
 
   def image_data
     {
-      image: @current_user.profile_picture&.url
+      image: @current_user.profile_picture_url
     }
   end
   def wallet_data

@@ -7,7 +7,7 @@ class Api::V2::UsersController < ApplicationController
     user = User.new(new_user_params)
     user.profile_picture.attach(params[:image])
     if user.save
-      render json: user.filter_attributes.merge!(image: user.profile_picture&.url), status: 201
+      render json: user.filter_attributes.merge!(image: user.profile_picture_url), status: 201
     else
       render json: { errors: user.errors.full_messages }, status: 422
     end
@@ -16,7 +16,7 @@ class Api::V2::UsersController < ApplicationController
   def update
     @current_user.profile_picture.attach(params[:image]) if params[:image].present?
     if @current_user.update(update_params)
-      render json: { user: @current_user.filter_attributes.merge!(image: @current_user.profile_picture&.url) }, status: 200
+      render json: { user: @current_user.filter_attributes.merge!(image: @current_user.profile_picture_url) }, status: 200
     else
       render json: { errors: @current_user.errors.full_messages }, status: 422
     end
@@ -32,6 +32,7 @@ class Api::V2::UsersController < ApplicationController
         last_name: params[:last_name],
         mobile_number: params[:mobile_number],
         country_code: params[:country_code],
+        country_chars: params[:country_chars],
         password: params[:password],
         password_confirmation: params[:password_confirmation],
         dob: params[:dob],
@@ -43,7 +44,7 @@ class Api::V2::UsersController < ApplicationController
   end
 
   def new_user_params
-    @user_params.require(:user).permit(:email, :password, :password_confirmation, :first_name, :last_name, :mobile_number, :country_code, :dob, :address)
+    @user_params.require(:user).permit(:email, :password, :password_confirmation, :first_name, :last_name, :mobile_number, :country_code, :country_chars, :dob, :address)
   end
 
   def update_params
