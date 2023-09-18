@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_05_083916) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_18_081406) do
   create_table "active_storage_attachments", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -120,6 +120,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_05_083916) do
     t.text "address"
     t.text "about_me"
     t.boolean "bank_added", default: false
+    t.string "country_chars"
+    t.string "language_preference", default: "English"
   end
 
   create_table "version_managers", charset: "utf8mb4", force: :cascade do |t|

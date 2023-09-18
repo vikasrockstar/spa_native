@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   include ActiveStorage::SetCurrent
-  before_action :authorize_request, only: [:profile, :reset_password, :update, :transactions, :graph_data, :wallet]
+  before_action :authorize_request, only: [:profile, :reset_password, :update, :transactions, :graph_data, :wallet, :language]
   before_action :set_user, only: [:login, :reset_password, :generate_otp, :validate_otp]
   before_action :check_email, only: [:update_mobile_number]
   before_action :set_user_params, only: [:registration, :update]
@@ -122,6 +122,16 @@ class UsersController < ApplicationController
   def wallet
     render json: { wallet: @current_user.wallet.balance }, status: 200
   end
+
+  def language
+    if params[:language].present?
+      @current_user.update(language_preference: params[:language])
+      render json: @current_user.filter_attributes.merge!(image_data).merge!(wallet_data), status: 200
+    else
+      render json: { errors: ['Invalid parameters']}, status: 200
+    end
+  end
+
   private
 
   def set_user_params

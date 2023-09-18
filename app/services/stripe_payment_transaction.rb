@@ -8,7 +8,7 @@ class StripePaymentTransaction
     @rating = event.data.dig('data', 'object', 'metadata', 'rating').to_i
     @review = event.data.dig('data', 'object', 'metadata', 'review')
     @user = User.find_by(id: user_id)
-    @amount = event.data.dig("data", "object", "amount_total").to_i / 100
+    @amount = ((event.data.dig("data", "object", "amount_total").to_i / 100) * 0.9)&.round(2)
   end
 
   def add_to_wallet

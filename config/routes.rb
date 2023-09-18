@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       get 'transactions'
       get 'wallet'
       post 'graph_data'
+      post 'language'
     end
   end
   resources :qr_codes, only: [:create], :defaults => {:format => 'json' } do
