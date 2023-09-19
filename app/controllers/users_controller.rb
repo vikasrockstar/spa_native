@@ -5,6 +5,8 @@ class UsersController < ApplicationController
   before_action :check_email, only: [:update_mobile_number]
   before_action :set_user_params, only: [:registration, :update]
 
+  SUPPORTED_LANGUAGES = ['ar', 'fr', 'en']
+
   def registration
     user = User.new(new_user_params)
     if user.save
@@ -77,7 +79,7 @@ class UsersController < ApplicationController
     transactions = @current_user.transactions.order(created_at: :desc).offset(per_page*page_number).limit(per_page)
     render json: { list: transactions, page_number: next_page }, status: 200
   rescue
-    render json: { errors: ['Invalid parameters']}, status: 200
+    render json: { errors: ['Invalid parameters']}, status: 422
   end
 
   # transaction graph data
@@ -124,11 +126,11 @@ class UsersController < ApplicationController
   end
 
   def language
-    if params[:language].present?
+    if params[:language].present? && SUPPORTED_LANGUAGES.include?(params[:language])
       @current_user.update(language_preference: params[:language])
       render json: @current_user.filter_attributes.merge!(image_data).merge!(wallet_data), status: 200
     else
-      render json: { errors: ['Invalid parameters']}, status: 200
+      render json: { errors: ['incorrect or invalid params']}, status: 422
     end
   end
 
