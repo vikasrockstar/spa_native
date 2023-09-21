@@ -1,19 +1,36 @@
-<div class="test-panel">
-  <%# <div class="profile_image"> %>
+<div  class="test-panel">
+  <%# <div   class="profile_image"> %>
     <% if @user.profile_picture.attached? %>
-    <%= image_tag @user.profile_picture, class: "pro", alt: "Profile Picture" %>
+      <%= image_tag @user.profile_picture, class: "pro", size: "200x200" , alt: "Profile Picture" %>
     <% else %>
     <%= image_tag "https://i.pinimg.com/originals/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg", size: "200x200",class: "pro", alt: "Default Profile Picture" %>
     <% end %>
-  <%# </div> %>
+  <%# </div> %>  
+
+  <div style=" margin-right: 10px; border: 1px solid black; padding: 5px;">
+  <select style="background-color: white; border: none; padding: 3px;">
+    <option >Select a Language</option>
+    <option value="french">French</option>
+    <option value="english">English</option>
+    <option value="hindi">Hindi</option>
+  </select>
+</div>
+
   <p class = "name"><%= @user.full_name%></p>
   <p class = "rateme"><%= @user.personal_rating.round(2)%>*| Ratings</p>
   <p class = "abtme"><%= @user.about_me%></p>
   <%= image_tag "https://www.google.com/url?sa=i&url=https%3A%2F%2Ficones.pro%2Fen%2Fgray-line-icon-png-symbol%2F&psig=AOvVaw2rzlnRybjNEiXXCO-dPKZ3&ust=1686080134376000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCJjBs43wrP8CFQAAAAAdAAAAABAE", width: "20x2",  class: "line" %>
   <%= form_for :payment, url: "payments/pay_link", class: "form" do |form| %>
-    <h5 class = "writeamt">Amount (AED)</h5>
-    <%disabled = params[:amount].present?%>
-    <%= form.number_field :amount, readonly: disabled, value: params[:amount] %>
+
+    <h5 class = "rateplz">Business ID</h5>  
+      <%disabled = params[:id].present?%> 
+    <%= form.number_field :id, readonly: disabled, value: params[:id] %>
+   
+    <h5  class = "writeamt">Amount (AED) <p style="display: inline; font-size: 20px;" id="demo"></p>
+    </h5>
+    <%disabled = params[:amount].present?%> 
+    <%= form.number_field :amount, readonly: disabled, value: params[:amount],step: :any %>
+   
     <h5 class = "rateplz">Rating</h5>
     <%= form.text_field :rating %>
     <div class="star-rating">
@@ -30,3 +47,25 @@
     <%= button_tag 'Pay', type: 'submit'%>
   <% end  %>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    var form = document.querySelector('.form');
+    form.addEventListener('submit', function (event) {
+      var amountField = form.querySelector('input[name="payment[amount]"]');
+      document.getElementById("demo").innerHTML = "*";
+      document.getElementById("demo").style.color = 'red';
+      var amountValue = amountField.value.trim();
+
+      if (amountValue === '') {
+        event.preventDefault();
+        alert('Amount cannot be empty');
+      }
+      else if(amountValue < 2){
+        event.preventDefault();
+        alert('Amount cannot be less than 2');
+      }   
+    });
+  });
+</script>
+
