@@ -1,5 +1,22 @@
 <div class="test-panel">
-<%= image_tag asset_path('MyTipsLogo.svg'), size: "200x200",class: "pro", alt: "My Tips" %>
-<br>
-<p>Thanks for using My Tips</p>
+  <%= image_tag asset_path('MyTipsLogo.svg'), size: "200x200", class: "pro", alt: "My Tips" %>
+  <br>
+  <p id="thanksMessage">Thanks for using My Tips</p>
 </div>
+
+<script>
+  const allCookies = document.cookie;
+  console.log(`All Cookies: ${allCookies}`);
+
+    if (allCookies === 'locale=ar') {
+        document.getElementById('thanksMessage').textContent = 'شكرا للاستخدام My Tips';
+    }
+    else if (allCookies === 'locale=fr')     {
+        document.getElementById('thanksMessage').textContent = "Merci d'avoir utilisé My Tips";
+    }
+    else{
+       document.getElementById('thanksMessage').textContent = 'Thanks for using My Tips';
+    }
+
+
+</script>
