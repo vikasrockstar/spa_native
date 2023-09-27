@@ -1,32 +1,54 @@
-<div class="test-panel">
-  <%# <div class="profile_image"> %>
+<%= javascript_include_tag('custom.js') %>
+<div  class="test-panel">
+  <%# <div   class="profile_image"> %>
     <% if @user.profile_picture.attached? %>
-    <%= image_tag @user.profile_picture, class: "pro", alt: "Profile Picture" %>
+      <%= image_tag @user.profile_picture, class: "pro", size: "200x200" , alt: "Profile Picture" %>
     <% else %>
     <%= image_tag "https://i.pinimg.com/originals/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg", size: "200x200",class: "pro", alt: "Default Profile Picture" %>
     <% end %>
-  <%# </div> %>
+  <%# </div> %>  
+
+  <div style="position: absolute; top: 20%; left: 78%; z-index: 1000;">
+    <select style="background-color: black; color: white; border-radius: 15px 15px 15px 15px; height:32px;" id="locale-select">
+      <option value="en">English</option>
+      <option value="fr">French</option>
+      <option value="ar">Arabic</option>
+    </select>
+  </div>
+
   <p class = "name"><%= @user.full_name%></p>
-  <p class = "rateme"><%= @user.personal_rating.round(2)%>*| Ratings</p>
-  <p class = "abtme"><%= @user.about_me%></p>
+  <div>
+  <p class="rateme" style="display: inline; margin: 0;"><%= @user.personal_rating.round(2)%>*</p>
+  <p id="ratings" class="rateme" style="display: inline; margin: 0;">*| Ratings</p>
+</div>
+    <p class = "abtme"><%= @user.about_me%></p>
   <%= image_tag "https://www.google.com/url?sa=i&url=https%3A%2F%2Ficones.pro%2Fen%2Fgray-line-icon-png-symbol%2F&psig=AOvVaw2rzlnRybjNEiXXCO-dPKZ3&ust=1686080134376000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCJjBs43wrP8CFQAAAAAdAAAAABAE", width: "20x2",  class: "line" %>
   <%= form_for :payment, url: "payments/pay_link", class: "form" do |form| %>
-    <h5 class = "writeamt">Amount (AED)</h5>
-    <%disabled = params[:amount].present?%>
-    <%= form.number_field :amount, readonly: disabled, value: params[:amount] %>
-    <h5 class = "rateplz">Rating</h5>
+
+    <h5 class="rateplz" id="business-id-heading"></h5>
+      <%disabled = params[:id].present?%> 
+    <%= form.text_field :id, readonly: disabled, value: params[:id] %>
+   
+    <div style="display: inline-block;">
+      <h5 id="amount-heading" class="writeamt" style="display: inline-block; margin: 0;">Amount:</h5>
+      <p style="display: inline-block; font-size: 20px; margin: 0;" id="demo"></p>
+    </div>
+    <%= form.number_field :amount, value: params[:amount],step: :any %>
+   
+    <h5 id="rating-heading" class = "rateplz"></h5>
     <%= form.text_field :rating %>
     <div class="star-rating">
       <% 5.times do |i| %>
         <span class="star">&#9733;</span>
       <% end%>
     </div>
-    <h5 class = "reviewplz">Review</h5>
+    <h5 id="review-heading" class = "reviewplz"></h5>
     <%= form.text_field 'review'  %>
     <%= hidden_field(:payment, :product_name, value: params[:product_name]) %>
     <%= hidden_field(:user, :payment_link) %>
     <%= hidden_field(:user, :id) %>
     <br>
-    <%= button_tag 'Pay', type: 'submit'%>
+    <%=  button_tag 'Pay', type: 'submit', id: 'pay-button'%>
   <% end  %>
 </div>
+
