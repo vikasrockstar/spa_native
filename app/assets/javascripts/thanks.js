@@ -1,19 +1,10 @@
 document.addEventListener('DOMContentLoaded', function () {
 
     const allCookies = document.cookie;
-    console.log(`All Cookies: ${allCookies}`);
-
-    const cookiesArray = allCookies.split(';');
-
     let locale = 'en';
 
-    for (const cookie of cookiesArray) {
-        const [cookieName, cookieValue] = cookie.trim().split('=');
-        if (cookieName === 'locale') {
-            locale = cookieValue;
-            break;
-        }
-    }
+    const [cookieName, cookieValue] = allCookies.trim().split('=');
+    locale = cookieValue;
 
     const thanksMessageElement = document.getElementById('thanksMessage');
     switch (locale) {
