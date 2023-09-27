@@ -33,6 +33,14 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :admin do
+    resources :users, only: [:index] do
+      collection do
+        get 'login'
+      end
+    end
+  end
+
   post '/version_manager', to: "home#version_manager"
   resources :transactions, only: [:create, :index]
   resources :withdrawal_requests, only: [:create, :index]
