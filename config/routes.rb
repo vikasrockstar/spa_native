@@ -37,6 +37,7 @@ Rails.application.routes.draw do
     resources :users, only: [:index] do
       collection do
         get 'login'
+        get 'users_list'
       end
     end
   end

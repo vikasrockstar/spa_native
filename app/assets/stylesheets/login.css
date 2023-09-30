@@ -1,0 +1,30 @@
+.bg-F1F4FA {
+    background-color: #F1F4FA;
+    border-radius: 20px;
+}
+.input-class{
+    background-color: #F1F4FA;
+    height:50px;
+}
+.login-button{
+    height:50px;
+}   
+.common-icon-style {
+  font-size: 20px; 
+  color: #333; 
+  cursor: pointer;
+  margin-top: 2px; 
+  
+}
+#togglePassword {
+    font-size: 20px; 
+    margin-top: 2px; 
+}
+
+input[type="text"] {
+   max-width: 274px;    
+}
+
+
+  
+     

@@ -134,6 +134,9 @@ class UsersController < ApplicationController
     end
   end
 
+  def users_list
+  end
+
   private
 
   def set_user_params

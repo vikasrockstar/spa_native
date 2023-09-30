@@ -1,0 +1,67 @@
+*{
+  background-color: #F1F4FA;
+  margin-top:20px
+}
+.user-list tbody td > img {
+  position: relative;
+max-width: 50px;
+float: left;
+margin-right: 15px;
+border-radius: 50%;
+}
+.user-list tbody td .user-link {
+display: block;
+font-size: 1.25em;
+padding-top: 3px;
+margin-left: 60px;
+}
+.user-list tbody td .user-subhead {
+font-size: 0.875em;
+font-style: italic;
+}
+
+/* TABLES */
+.table {
+  border-collapse: separate;
+}
+.table-hover > tbody > tr:hover > td,
+.table-hover > tbody > tr:hover > th {
+background-color: #eee;
+}
+.table thead > tr > th {
+border-bottom: 1px solid #C2C2C2;
+padding-bottom: 0;
+
+}
+
+.table tbody > tr > td {
+font-size: 0.875em;
+background: white;
+border-top: 10px solid #F1F4FA;
+vertical-align: middle;
+padding: 12px 8px;
+}
+.table tbody > tr > td:first-child,
+.table thead > tr > th:first-child {
+padding-left: 20px;
+}
+.table thead > tr > th span {
+border-bottom: 2px solid #C2C2C2;
+display: inline-block;
+padding: 0 5px;
+padding-bottom: 5px;
+font-weight: normal;
+background: white;
+
+
+}
+ td > span {
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  color: #03A89E;
+  background: rgba(3, 168, 158, 0.2); 
+    border-radius: 20px 20px 20px 20px;
+  padding: 5px;
+}
+
