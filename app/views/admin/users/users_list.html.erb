@@ -1,108 +1,41 @@
 <div class="container-fluid">
-<div class="container">
-<div class="row">
-	<div class="col-lg-12">
-		<div class="main-box clearfix">
-			<div class="table-responsive">
-				<table class="table user-list">
-					<thead>
-						<tr>
-							<th><span>User</span></th>
-							<th><span>Created</span></th>
-							<th class="text-center"><span>Status</span></th>
-							<th><span>Email</span></th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr class="table-row">
-							<td >
-								<img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
-								<a href="#" class="text-dark fs-6">Mila Kunis</a>
-							</td>
-							<td>
-								2013/08/08
-							</td>
-							<td class="text-center">
-								<span class="label label-default">Inactive</span>
-							</td>
-							<td>
-								<a href="#">mila@kunis.com</a>
-							</td>
-							
-						</tr>
-
-                        <tr>
-							<td >
-								<img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
-								<a href="#" class="text-dark fs-6">Mila Kunis</a>
-							</td>
-							<td>
-								2013/08/08
-							</td>
-							<td class="text-center">
-                            <span class="label label-default">Inactive</span>
-							</td>
-							<td>
-								<a href="#">mila@kunis.com</a>
-							</td>
-							
-						</tr>
-
-                        <tr>
-							<td >
-								<img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
-								<a href="#" class="text-dark fs-6">Mila Kunis</a>
-							</td>
-							<td>
-								2013/08/08
-							</td>
-							<td class="text-center">
-								<span class="label label-default">Inactive</span>
-							</td>
-							<td>
-								<a href="#">mila@kunis.com</a>
-							</td>
-							
-						</tr>
-
-                        <tr>
-							<td >
-								<img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
-								<a href="#" class="text-dark fs-6">Mila Kunis</a>
-							</td>
-							<td>
-								2013/08/08
-							</td>
-							<td class="text-center">
-								<span class="label label-default">Inactive</span>
-							</td>
-							<td>
-								<a href="#">mila@kunis.com</a>
-							</td>
-						</tr>
-
-                        <tr>
-							<td >
-								<img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
-								<a href="#" class="text-dark fs-6">Mila Kunis</a>
-							</td>
-							<td>
-								2013/08/08
-							</td>
-							<td class="text-center">
-								<span class="label label-default">Inactive</span>
-							</td>
-							<td>
-								<a href="#">mila@kunis.com</a>
-							</td>
-							
-						</tr>
-						
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</div>
-</div>
-</div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="main-box clearfix">
+          <div class="table-responsive">
+            <table class="table user-list">
+              <thead>
+                <tr>
+                  <th><span>User</span></th>
+                  <th><span>Created</span></th>
+                  <th class="text-center"><span>Status</span></th>
+                  <th><span>Email</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @users.each do |user| %>
+                  <tr class="table-row">
+                    <td >
+                      <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+                      <a href="#" class="text-dark fs-6"><%= "#{user.first_name} #{user.last_name}" %></a>
+                    </td>
+                    <td>
+                      <%= user.created_at.strftime('%Y/%m/%d') %>
+                    </td>
+                    <td class="text-center">
+                      <span class="label label-default"><%= user.suspended? ? 'Inactive' : 'Active' %></span>
+                    </td>
+                    <td>
+                      <a href="#"><%= user.email %></a>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

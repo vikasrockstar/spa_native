@@ -36,6 +36,7 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :users, only: [:index] do
       collection do
+        get 'login'
         post 'login'
         get 'users_list', as: 'users_list'
       end

@@ -1,14 +1,21 @@
 module Admin
   class UsersController < ActionController::Base
-    # protect_from_forgery with: :null_session 
-    before_action :set_user,  only: [:login]
+    layout 'custom_layout'
+    protect_from_forgery with: :null_session
+    ADMIN_EMAILS_LIST = ["admin@mytips.com"]
+
+    before_action :require_login, only: [:users_list]
+    before_action :set_user, only: [:login], if: -> { request.method == "POST" }
   
     def login
-      puts @user
-      if @user && @user.authenticate(params[:password])
-        redirect_to users_list_admin_users_path
-      else
-        render json: { errors: ['password is incorrect'] }, status: 400
+      if request.method == "POST"
+        if @current_user && @current_user.authenticate(params[:password])
+          session[:user_id] = @current_user.id
+          redirect_to users_list_admin_users_path
+        else
+          # @error_message = "Password is invalid!"
+          redirect_to login_admin_users_path
+        end
       end
     end
 
@@ -19,12 +26,17 @@ module Admin
     private 
 
     def set_user
-      return if params[:email] != 'admin@mytips.com' # will fetch from ENV
+      @current_user = User.find_by(email: params[:email])
 
-      @user = User.find_by(email: params[:email])
-      if @user.nil?
-        render json: {errors: ['Invalid email address']}, status: 400  
+      unless ADMIN_EMAILS_LIST.include?(params[:email]) && @current_user.present?
+        # flash[:alert] = "Email is invalid!"
+        session[:user_id] = nil
+        redirect_to login_admin_users_path
       end
+    end
+
+    def require_login
+      redirect_to login_admin_users_path unless session.include? :user_id
     end
   end
 end
