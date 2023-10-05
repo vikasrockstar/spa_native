@@ -21,10 +21,6 @@
     margin-top: 2px; 
 }
 
-input[type="text"] {
+input[type="text"][id="password"] {
    max-width: 274px;    
 }
-
-
-  
-     

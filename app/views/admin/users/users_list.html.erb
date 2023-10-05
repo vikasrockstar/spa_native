@@ -1,41 +1,81 @@
-<div class="container-fluid">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="main-box clearfix">
-          <div class="table-responsive">
-            <table class="table user-list">
-              <thead>
-                <tr>
-                  <th><span>User</span></th>
-                  <th><span>Created</span></th>
-                  <th class="text-center"><span>Status</span></th>
-                  <th><span>Email</span></th>
-                </tr>
-              </thead>
-              <tbody>
-                <% @users.each do |user| %>
-                  <tr class="table-row">
-                    <td >
-                      <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
-                      <a href="#" class="text-dark fs-6"><%= "#{user.first_name} #{user.last_name}" %></a>
-                    </td>
-                    <td>
-                      <%= user.created_at.strftime('%Y/%m/%d') %>
-                    </td>
-                    <td class="text-center">
-                      <span class="label label-default"><%= user.suspended? ? 'Inactive' : 'Active' %></span>
-                    </td>
-                    <td>
-                      <a href="#"><%= user.email %></a>
-                    </td>
-                  </tr>
-                <% end %>
-              </tbody>
-            </table>
-          </div>
+<%= javascript_include_tag('userlist.js') %>
+<div class="container-fluid list">
+    <div class="">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="main-box clearfix">
+                    <div class="table-responsive">
+                        <h5 id="userlist-heading" class="username">User-List</h5>
+                        <table class="table user-list">
+                            <thead>
+                                <tr>
+                                    <th><span>Name </span></th>
+                                    <th><span>Email</span></th>
+                                    <th class="text-center"><span>Phone Number</span></th>
+                                    <th><span>Gender</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% @users.each do |user| %>
+                                <tr onclick="openSidebar(this)" class="table-row cursor-pointer">
+                                    <td>
+                                        <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="img-username" />
+                                        <p class="fs-6 mt-4 cursor-help"><%= "#{user.first_name} #{user.last_name}" %></p>
+                                    </td>
+                                    <td>
+                                        <a class="cursor-pointer email text-dark"><%= user.email %></a>
+                                    </td>
+                                    <td class="text-center">
+                                        <p class="phone fs-6"><%= user.mobile_number %></p>
+                                    </td>
+                                    <td>
+                                        <span class="label label-default">Male</span>
+                                    </td>
+
+                                    <td style="display: none;">
+                                        <p class="address"><%= user.address %></p>
+                                    </td>
+                                </tr>
+                                <% end %>
+
+                            </tbody>
+                        </table>
+                        <div class="pagination-container">
+                            <div class="links">
+                                <button class="button prevNext" id="prev" disabled>prev</button>
+                                <a href="" class="link active">1</a>
+                                <a href="" class="link">2</a>
+                                <a href="" class="link">3</a>
+                                <a href="" class="link">4</a>
+                                <a href="" class="link">5</a>
+                                <button class="button prevNext" id="next">next</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div id="panelA" class="side-panel fixed-side-panel">
+                    <div class="user-info">
+                        <img src="" alt="User Profile Image" class="user-profile-image" />
+                        <h5 class="username">Mila Kunis</h5>
+                        <h5>UI/UX Designer</h5>
+                    </div>
+                    <div class="contact-info">
+                        <h5 class="pt-4">Contact Info</h5>
+                        <p class="email d-flex align-items-center">
+                            <i class="fa fa-envelope me-2" style="font-size: 20px; margin-right: 5px; float: left;color:black;"></i>
+                            <a href="mailto:mila@kunis.com">mila@kunis.com</a>
+                        </p>
+
+                        <i class="fa fa-phone" style="font-size: 24px; margin-right: 5px; float: left;"></i>
+                        <p class="phone d-flex align-items-center"></p>
+                        
+                        <i class="fa fa-map-marker" style="font-size: 24px; margin-right: 5px; float: left;"></i><p>rajwada indore</p>
+                    </div>
+                    <button id="suspend-btn" class="btn">Suspend</button>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
