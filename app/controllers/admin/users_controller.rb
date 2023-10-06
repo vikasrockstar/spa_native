@@ -1,7 +1,7 @@
 module Admin
   class UsersController < ActionController::Base
     layout 'custom_layout'
-    protect_from_forgery with: :null_session
+    protect_from_forgery with: :exception
     ADMIN_EMAILS_LIST = ["admin@mytips.com"]
 
     before_action :require_login, only: [:users_list]
@@ -20,7 +20,7 @@ module Admin
     end
 
     def users_list
-      @users = User.all
+      @users = User.paginate(page: params[:page], per_page: 10)
     end
 
     private 
