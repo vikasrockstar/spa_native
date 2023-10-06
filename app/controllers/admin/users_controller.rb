@@ -13,7 +13,7 @@ module Admin
           session[:user_id] = @current_user.id
           redirect_to users_list_admin_users_path
         else
-          # @error_message = "Password is invalid!"
+          flash[:error] = "Password is invalid!"
           redirect_to login_admin_users_path
         end
       end
@@ -29,7 +29,7 @@ module Admin
       @current_user = User.find_by(email: params[:email])
 
       unless ADMIN_EMAILS_LIST.include?(params[:email]) && @current_user.present?
-        # flash[:alert] = "Email is invalid!"
+        flash[:error] = "Email is invalid!"
         session[:user_id] = nil
         redirect_to login_admin_users_path
       end
