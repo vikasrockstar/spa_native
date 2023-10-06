@@ -1,8 +1,6 @@
 function openSidebar(row) {
     var panelA = document.getElementById("panelA");
 
-    console.log(panelA);
-
     var userName = row.querySelector(".fs-6").textContent;
     var userEmail = row.querySelector(".email").textContent;
     var phone = row.querySelector(".phone").textContent;
@@ -17,7 +15,7 @@ function openSidebar(row) {
     panelA.querySelector(".phone").textContent = phone;
     panelA.querySelector(".businessid").textContent = businessId;
     panelA.querySelector(".aboutme").textContent = aboutMe;
-    // panelA.querySelector(".address").textContent = address;
+    panelA.querySelector(".address").textContent = address;
     panelA.querySelector(".user-profile-image").src = userImageSrc;
     panelA.style.display = "block";
 }
