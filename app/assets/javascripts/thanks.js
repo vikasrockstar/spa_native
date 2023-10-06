@@ -9,13 +9,13 @@ document.addEventListener('DOMContentLoaded', function () {
     const thanksMessageElement = document.getElementById('thanksMessage');
     switch (locale) {
         case 'ar':
-            thanksMessageElement.textContent = 'شكرا لاستخدام My Tips';
+            thanksMessageElement.textContent = 'شكراً لاستعمالك MyTips';
             break;
         case 'fr':
             thanksMessageElement.textContent = "Merci d'avoir utilisé My Tips";
             break;
         default:
-            thanksMessageElement.textContent = 'شكراً لاستعمالك MyTips';
+            thanksMessageElement.textContent = 'Thanks for using My Tips';
             break;
     }
 });

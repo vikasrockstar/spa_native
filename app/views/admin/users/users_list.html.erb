@@ -18,7 +18,12 @@
                                 <% @users.each do |user| %>
                                 <tr onclick="openSidebar(this)" class="table-row cursor-pointer">
                                     <td>
-                                        <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="img-username" />
+                                    <% if user.profile_picture.attached? %>
+                                    <%= image_tag user.profile_picture, class: "img img-username",  alt: "Profile Picture" %>
+                                  <% else %>
+                                  <%= image_tag "https://i.pinimg.com/originals/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg", class: "img-username", alt: "Default Profile Picture" %>
+                                  <% end %>
+
                                         <p class="fs-6 mt-3 cursor-help"><%= "#{user.first_name} #{user.last_name}" %></p>
                                     </td>
                                     <td>
@@ -34,17 +39,15 @@
                                         <p class="aboutme"><%= user.about_me %></p>
                                         <p class="businessid"><%= user.business_id_card %></p>
                                     </td>
-                                </tr>
-                                <% end %>
+                                </tr>   
+                            <% end %>
 
-                                
-    
                             </tbody>
                         </table>
                         <div class="pagination-container">
-                          <div class="links">
-                            <%= will_paginate @users, previous_label: 'Previous', next_label: 'Next', class: 'link' %>
-                          </div>
+                            <div class="links">
+                            <%= will_paginate @users, previous_label: 'Previous', next_label: 'Next' %>               
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -52,7 +55,7 @@
             <div class="col-lg-3">
                 <div id="panelA" class="side-panel fixed-side-panel">
                     <div class="user-info">
-                        <img src="" alt="User Profile Image" class="user-profile-image" />
+                        <img src="" alt="User Profile Image" class="user-profile-image" style="width: 100px; height: 100px;" />
                         <h5 class="username">Mila Kunis</h5>
                         <a href="#" class="btn btn-link">
                             <p class="businessid">Business ID</p>
@@ -69,10 +72,10 @@
                         <i class="fa fa-phone fs-4 icon-style" ></i>
                         <p class="phone d-flex align-items-center"></p>
                         
-                        <i class="fa fa-map-marker fs-4 icon-style" ></i><p class="address pb-2"></p>
+                        <i class="fa fa-map-marker fs-4 icon-style" ></i><p class="address"></p>
                        
-                        <h5 class="aboutme-heading">About Me :- &nbsp;&nbsp;</h5><h5 class="aboutme"></h5>
-                        
+                        <p class="aboutme-heading fs-6">About Me :- &nbsp;&nbsp;</p><p class="aboutme fs-6"></p>
+                            
                     </div>
                     <button id="suspend-btn" class="btn">Suspend</button>
                 </div>

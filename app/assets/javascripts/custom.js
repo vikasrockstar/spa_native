@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
       ratingHeading.innerText = "ملاحظة";
       reviewHeading.innerText = "تعليق";
       ratings.innerText = "ملاحظات";
-      payButton.innerText = "Pay";
+      payButton.innerText = "يدفع";
     }
   };
 
