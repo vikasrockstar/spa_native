@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
             thanksMessageElement.textContent = "Merci d'avoir utilisé My Tips";
             break;
         default:
-            thanksMessageElement.textContent = 'Thanks for using My Tips';
+            thanksMessageElement.textContent = 'شكراً لاستعمالك MyTips';
             break;
     }
 });

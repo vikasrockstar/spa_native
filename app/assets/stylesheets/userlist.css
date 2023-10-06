@@ -1,5 +1,5 @@
 .list {
-  
+  /* padding-bottom: 180px; */
   background-color: #f1f4fa;
 }
 .user-list tbody td > img {
@@ -25,6 +25,7 @@
 .table {
   border-collapse: separate;
   margin-bottom: 100px;
+  padding-bottom: 180px;
 }
 .table-hover > tbody > tr:hover > td,
 .table-hover > tbody > tr:hover > th {
@@ -90,6 +91,7 @@ td > span {
 .email {
   font-size: 1rem;
   color: #777;
+
 }
 .contact-info{
   background-color: white;
@@ -130,6 +132,10 @@ tr{
   
 }
 
+.aboutme-heading{
+  float: left;
+}
+
 #userlist-heading{
   padding: 25px;
   font-size: 30px;
@@ -145,6 +151,13 @@ tr{
   &:hover {
     background-color: darkorange;
   }
+}
+
+.icon-style{
+  font-size: 20px;
+   margin-right: 5px;
+   float: left;
+  color:black;
 }
 
 
