@@ -1,67 +1,231 @@
-*{
-  background-color: #F1F4FA;
-  margin-top:20px
+.list {
+  /* padding-bottom: 180px; */
+  background-color: #f1f4fa;
 }
 .user-list tbody td > img {
   position: relative;
-max-width: 50px;
-float: left;
-margin-right: 15px;
-border-radius: 50%;
+  max-width: 50px;
+  float: left;
+  margin-right: 15px; 
+  border-radius: 50%;
 }
 .user-list tbody td .user-link {
-display: block;
-font-size: 1.25em;
-padding-top: 3px;
-margin-left: 60px;
+  display: block;
+  font-size: 1.25em;
+  padding-top: 3px;
+  margin-left: 60px;
 }
+
 .user-list tbody td .user-subhead {
-font-size: 0.875em;
-font-style: italic;
+  font-size: 0.875em;
+  font-style: italic;
 }
 
 /* TABLES */
 .table {
   border-collapse: separate;
+  margin-bottom: 100px;
+  padding-bottom: 180px;
 }
 .table-hover > tbody > tr:hover > td,
 .table-hover > tbody > tr:hover > th {
-background-color: #eee;
+  background-color: #eee;
 }
 .table thead > tr > th {
-border-bottom: 1px solid #C2C2C2;
-padding-bottom: 0;
-
+  border-bottom: 1px solid #c2c2c2;
+  padding-bottom: 0;
 }
 
 .table tbody > tr > td {
-font-size: 0.875em;
-background: white;
-border-top: 10px solid #F1F4FA;
-vertical-align: middle;
-padding: 12px 8px;
-}
-.table tbody > tr > td:first-child,
-.table thead > tr > th:first-child {
-padding-left: 20px;
+  font-size: 0.875em;
+  background: white;
+  border-top: 10px solid #f1f4fa;
+  vertical-align: middle;
+  
 }
 .table thead > tr > th span {
-border-bottom: 2px solid #C2C2C2;
-display: inline-block;
-padding: 0 5px;
-padding-bottom: 5px;
-font-weight: normal;
-background: white;
-
-
+  border-bottom: 2px solid #c2c2c2;
+  display: inline-block;
+  padding: 0 5px;
+  padding-bottom: 5px;
+  font-weight: normal;
+  background: white;
 }
- td > span {
+td > span {
   justify-content: center;
   align-items: center;
   width: 60px;
-  color: #03A89E;
-  background: rgba(3, 168, 158, 0.2); 
-    border-radius: 20px 20px 20px 20px;
+  color: #03a89e;
+  background: rgba(3, 168, 158, 0.2);
+  border-radius: 20px 20px 20px 20px;
   padding: 5px;
 }
+
+.side-panel {
+  padding-top: 200px;
+  background-color: white;
+  padding-left: 20px;
+  border-right: 1px solid white;
+  position: sticky;
+}
+
+.user-info {
+  text-align: center;
+  background-color: white;
+  margin-top: 100px;
+}
+.user-info > h5{
+  background-color: white;
+}
+
+.user-info img {
+  max-width: 100px;
+  border-radius: 50%;
+}
+
+.username {
+  font-size: 1.5rem;
+  margin-top: 10px;
+}
+
+.email {
+  font-size: 1rem;
+  color: #777;
+
+}
+.contact-info{
+  background-color: white;
+}
+
+.contact-info > h5,p{
+  background-color: white;
+}
+
+#panelA{
+  display: none;
+}
+tr > td > img,a{
+  background-color: white;
+  display: flex; 
+  align-items: center;
+}
+
+.user > img {
+  position: relative;
+  max-width: 50px;
+  float: left;
+  margin-right: 15px;
+  border-radius: 50%;
+}
+
+tr{
+  cursor: pointer;
+}
+
+
+.fixed-side-panel {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  padding-top: 20px; /* Adjust as needed to create space from the top */
+  
+}
+
+.aboutme-heading{
+  float: left;
+}
+
+#userlist-heading{
+  padding: 25px;
+  font-size: 30px;
+}
+
+#suspend-btn{
+  background-color: orange;
+  background-color: orange;
+  position: absolute; /* Add this line */
+  bottom: 30px; /* Adjust the bottom spacing as needed */
+  left: 50%; /* Center horizontally */
+  transform: translateX(-50%); /* Center horizontally */
+  &:hover {
+    background-color: darkorange;
+  }
+}
+
+.icon-style{
+  font-size: 20px;
+   margin-right: 5px;
+   float: left;
+  color:black;
+}
+
+
+@media (max-width: 400px) {
+  tr > td > p > a{
+    background-color: blue;
+    font-size: 2px;
+  
+  }
+   
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+
+
+.container,
+.button,
+.links,
+.link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pagination-container {
+  padding: 20px;
+  border-radius: 8px;
+  column-gap: 12px;
+  background: #f1f4fa;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.button {
+  border: none;
+}
+.button i {
+  pointer-events: none;
+}
+.button:disabled {
+  color: #b3b3b3;
+  pointer-events: none;
+}
+.button,
+.link {
+  height: 45px;
+  width: 45px;
+  font-size: 20px;
+  color: #666666;
+  background-color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.links {
+  column-gap: 12px;
+}
+.link {
+  font-weight: 500;
+  text-decoration: none;
+}
+.button:hover,
+.link:hover {
+  color: white;
+  background: #4070f4;
+}
+.link.active {
+  color: #fff;
+  background: #4070f4;
+}
+
 
