@@ -2,7 +2,8 @@ module Admin
   class UsersController < ActionController::Base
     layout 'custom_layout'
     protect_from_forgery with: :exception
-    ADMIN_EMAILS_LIST = ["admin@mytips.com"]
+    protect_from_forgery with: :null_session
+    ADMIN_EMAILS_LIST = ["admin@mytips.com"]  
 
     before_action :require_login, only: [:users_list]
     before_action :set_user, only: [:login], if: -> { request.method == "POST" }
@@ -20,7 +21,19 @@ module Admin
     end
 
     def users_list
-      @users = User.paginate(page: params[:page], per_page: 10)
+      @users = User.paginate(page: params[:page], per_page: 50)
+    end
+
+    def suspend
+      user = User.find(params[:user_id])
+      if user && !user.suspended
+        user.update(suspended: true)
+        render json: { success: true, message: 'User suspended successfully'}
+      elsif user.suspended?
+        render json: {success: false, message: 'User is already suspended'}
+      else
+        render json: {success: false, message: 'User not found'}
+      end
     end
 
     private 

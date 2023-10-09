@@ -40,6 +40,7 @@ Rails.application.routes.draw do
         post 'login'
         get 'users_list', as: 'users_list'
       end
+      post 'suspend', to: "users#suspend" 
     end
   end
 
