@@ -35,13 +35,3 @@ document.addEventListener("DOMContentLoaded", function () {
         password.setAttribute("type", type);
     });
 })
-
-
-function remember() {
-    var email = document.getElementById("email").value;
-    var password = document.getElementById("password").value;
-    localStorage.setItem("user-email", email);
-    localStorage.setItem("user-password", password);
-}
-
-
