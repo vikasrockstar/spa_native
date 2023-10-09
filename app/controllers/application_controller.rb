@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  protect_from_forgery with: :null_session
   include ActiveStorage::SetCurrent
   def not_found
     render json: { errors: ['not_found'] }
