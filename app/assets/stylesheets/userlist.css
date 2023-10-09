@@ -133,16 +133,39 @@ tr{
   
 }
 
-.aboutme-heading{
-  float: left;
+.about-container {
+  display: flex;
+  align-items: start; /* Vertically center the content */
 }
+
+.heading {
+  flex: 0 0 auto; /* Prevent the heading from growing or shrinking */
+  margin-right: 10px; /* Add some margin to separate it from the content */
+}
+
+.aboutme {
+  flex: 1; /* Allow the content to grow and fill the remaining space */
+}
+
+
+
+
+.heading {
+  display: inline; /* Make the heading inline */
+  margin-right: 10px; /* Add some margin to separate it from the address */
+}
+
+.address {
+  display: inline; /* Make the address inline */
+}
+
 
 #userlist-heading{
   padding: 25px;
   font-size: 30px;
 }
 
-#suspend-btn{
+#suspend-user-button{
   background-color: orange;
   background-color: orange;
   position: absolute; /* Add this line */
@@ -153,6 +176,7 @@ tr{
     background-color: darkorange;
   }
 }
+
 
 .icon-style{
   font-size: 20px;

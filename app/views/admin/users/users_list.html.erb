@@ -35,6 +35,8 @@
                                     
 
                                     <td class="d-none">
+                                    <p class="suspend"><%= user.suspended %></p>
+                                        <p class="id"><%= user.id %></p>
                                         <p class="address"><%= user.address %></p>
                                         <p class="aboutme"><%= user.about_me %></p>
                                         <p class="businessid"><%= user.business_id_card %></p>
@@ -59,25 +61,32 @@
                         <h5 class="username">Mila Kunis</h5>
                         <a href="#" class="btn btn-link">
                             <p class="businessid">Business ID</p>
+                            
                         </a>
+                        <p id="id" class="id d-none"></p>
+                        <p  class="suspend d-none"></p>
                         
                     </div>
                     <div class="contact-info">
                         <h5 class="pt-4">Contact Info</h5>
                         <p class="email d-flex align-items-center">
-                            <i class="fa fa-envelope me-2 icon-style" ></i>
+                            <i class="fa fa-envelope me-2 icon-style"></i>
                             <a href="mailto:mila@kunis.com">mila@kunis.com</a>
                         </p>
 
                         <i class="fa fa-phone fs-4 icon-style" ></i>
                         <p class="phone d-flex align-items-center"></p>
-                        
-                        <i class="fa fa-map-marker fs-4 icon-style" ></i><p class="address"></p>
-                       
-                        <p class="aboutme-heading fs-6">About Me :- &nbsp;&nbsp;</p><p class="aboutme fs-6"></p>
                             
-                    </div>
-                    <button id="suspend-btn" class="btn">Suspend</button>
+                        <p class="heading fs-6"><i class="fa fa-map-marker fs-4 icon-style" ></i>Address :-&nbsp;</p><p class="address"></p>
+                        <br/>
+                        <div class="about-container pt-3">
+                        <p class="heading fs-6">About Me :-&nbsp;</p>
+                        <p class="aboutme fs-6">This is some information about me.</p>
+                      </div>
+                                          </div>
+                    
+                    <button onclick="suspendUser()" id="suspend-user-button" class="suspend-btn btn">Suspend</button>
+                    
                 </div>
             </div>
         </div>
