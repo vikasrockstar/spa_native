@@ -9,7 +9,7 @@ class PaymentsController < ActionController::Base
   end
   
   def pay_link
-    payment_link = StripePayment.new(@user, @amount.to_i, @product_name, false, {rating: @rating, review: @review}).create_payment_link
+    payment_link = StripePayment.new(@user, @amount, @product_name, false, {rating: @rating, review: @review}).create_payment_link
     redirect_to payment_link, allow_other_host: true
   end
   

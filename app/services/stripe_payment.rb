@@ -5,7 +5,7 @@ class StripePayment
 
   def initialize(user, amount = 0, product_name = 'Personal QR', custom_price = false, metadata={})
     # Stripe.api_key = ENV['STRIPE_SECRET_KEY']
-    amount *= 100
+    amount = (amount.to_f * 100).to_i
     @current_user = user
     @product_name = product_name || 'Personal QR'
     @product = create_product
