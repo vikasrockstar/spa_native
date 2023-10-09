@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const thanksMessageElement = document.getElementById('thanksMessage');
     switch (locale) {
         case 'ar':
-            thanksMessageElement.textContent = 'شكراً لاستعمالك MyTips';
+            thanksMessageElement.textContent = 'MyTips شكراً لاستعمالك';
             break;
         case 'fr':
             thanksMessageElement.textContent = "Merci d'avoir utilisé My Tips";
