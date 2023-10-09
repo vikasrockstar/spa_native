@@ -7,7 +7,7 @@ module Admin
 
     before_action :require_login, only: [:users_list]
     before_action :set_user, only: [:login], if: -> { request.method == "POST" }
-    # before_action :check_logged_in, only: [:login], if: -> { request.method == "GET" }
+    before_action :check_logged_in, only: [:login], if: -> { request.method == "GET" }
   
     def login
       if request.method == "POST"
