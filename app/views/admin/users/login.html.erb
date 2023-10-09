@@ -1,0 +1,46 @@
+<%= javascript_include_tag('login.js') %>
+<div class="container-fluid">
+	<div class="row">
+	    <div class="col-md-4 ">
+	        <div class="d-flex flex-column justify-content-center align-items-center vh-100 bg-white">
+	          <%= image_tag "mytipsimage.png",size: "250x100" , alt: "Description of the image", class: "img-fluid" %>
+            <%= form_with model: @user, url: login_admin_users_path, method: :post, id: 'form', class: 'py-5 px-4 left-align-form' do |form| %>
+              <% flash.each do |type, msg| %>
+                <div class="alert alert-danger mb-1">
+                  <%= msg %>
+                </div>
+              <% end %>
+              <div class="mb-3">
+                <%= form.label :email, class: 'form-label fw-bolder' %>
+                <%= form.email_field :email, class: 'form-control input-class border border-light', placeholder: 'Enter your email', id:"email" %>
+              </div>
+
+              <div class="mb-3">
+                <%= form.label :password, class: 'form-label fw-bolder' %>
+                <div class="input-group">
+                  <%= form.password_field :password, class: 'form-control input-class border border-light', placeholder: 'Password',id:"password" %>
+                  <span class="input-group-text input-class border border-light">
+                    <%#= fa_icon 'eye-slash', id: 'togglePassword', class: 'fa fa-eye-slash common-icon-style', style: 'cursor: pointer' %>
+                    <i id="togglePassword" class="fa fa-eye-slash common-icon-style" style="cursor: pointer"></i>
+                  </span>
+                </div>
+              </div>
+
+              <div class="mt-2">
+                <%= form.check_box :remember_me, class: 'form-check-input', id: 'rememberMe' %>
+                <%= form.label :remember_me, class: 'form-check-label', for: 'rememberMe' do %>
+                  Remember me
+                <% end %>
+              </div>
+
+              <%= form.submit 'Login', class: 'btn btn-dark submit_btn w-100 my-4 login-button' %>
+            <% end %>
+	        </div>
+	    </div>
+	    <div class="col-md-8">
+	        <div class="d-flex justify-content-center align-items-center vh-100 bg-light">
+	        <%= image_tag "mytipsimage.png", alt: "Description of the image", class: "img-fluid" %>
+	        </div>
+	    </div>
+	</div>
+</div>

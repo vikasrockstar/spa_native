@@ -49,12 +49,12 @@ document.addEventListener('DOMContentLoaded', function () {
       payButton.innerText = "Paiement";
     }
     if (locale === 'ar') {
-      businessIdHeading.innerText = "Business ID";
-      amountHeading.innerText = "Amount (AED)";
-      ratingHeading.innerText = "Rating";
-      reviewHeading.innerText = "Review";
-      ratings.innerText = "Ratings";
-      payButton.innerText = "Pay";
+      businessIdHeading.innerText = "بطاقة العمل";
+      amountHeading.innerText = "المبلغ (درهم)";
+      ratingHeading.innerText = "ملاحظة";
+      reviewHeading.innerText = "تعليق";
+      ratings.innerText = "ملاحظات";
+      payButton.innerText = "يدفع";
     }
   };
 
