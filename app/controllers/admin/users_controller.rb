@@ -7,6 +7,7 @@ module Admin
 
     before_action :require_login, only: [:users_list]
     before_action :set_user, only: [:login], if: -> { request.method == "POST" }
+    # before_action :check_logged_in, only: [:login], if: -> { request.method == "GET" }
   
     def login
       if request.method == "POST"
@@ -37,6 +38,12 @@ module Admin
     end
 
     private 
+
+    def check_logged_in
+      if session[:user_id].present?
+        redirect_to users_list_admin_users_path
+      end
+    end
 
     def set_user
       @current_user = User.find_by(email: params[:email])
