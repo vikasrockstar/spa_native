@@ -28,7 +28,7 @@ class User < ApplicationRecord
   def send_auth_code
     options = {
       to: mobile_with_code,
-      body: "Your SPA Native Verification code is #{self.otp_code}. Please do not share it with anybody."
+      body: "Your My Tips Verification code is #{self.otp_code}. Please do not share it with anybody."
     }
     SendCode.new.send_sms(options)
   end

@@ -2,7 +2,6 @@ document.cookie = `locale=en; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/`;
 document.addEventListener('DOMContentLoaded', function () {
   var form = document.querySelector('.form');
   const localeSelect = document.getElementById('locale-select');
-  const businessIdHeading = document.getElementById('business-id-heading');
   const amountHeading = document.getElementById('amount-heading');
   const ratingHeading = document.getElementById('rating-heading');
   const reviewHeading = document.getElementById('review-heading');
@@ -33,7 +32,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
   const updateHeadingText = (locale) => {
     if (locale === 'en') {
-      businessIdHeading.innerText = "Business ID";
       amountHeading.innerText = "Amount (AED)";
       ratingHeading.innerText = "Rating";
       reviewHeading.innerText = "Review";
@@ -41,7 +39,6 @@ document.addEventListener('DOMContentLoaded', function () {
       payButton.innerText = "Pay";
     }
     if (locale === 'fr') {
-      businessIdHeading.innerText = "Carte de visite";
       amountHeading.innerText = "Montant (AED)";
       ratingHeading.innerText = "Note";
       reviewHeading.innerText = "Commentaires";
@@ -49,7 +46,6 @@ document.addEventListener('DOMContentLoaded', function () {
       payButton.innerText = "Paiement";
     }
     if (locale === 'ar') {
-      businessIdHeading.innerText = "بطاقة العمل";
       amountHeading.innerText = "المبلغ (درهم)";
       ratingHeading.innerText = "ملاحظة";
       reviewHeading.innerText = "تعليق";
