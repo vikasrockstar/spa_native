@@ -31,13 +31,14 @@
   <p class="rateme" style="display: inline; margin: 0;"><%= @user.personal_rating.round(2)%>*</p>
   <p id="ratings" class="rateme" style="display: inline; margin: 0;">*| Ratings</p>
 </div>
-    <p class = "abtme"><%= @user.about_me%></p>
+    <p class = "abtme m-4"><%= @user.about_me%></p>
+    <a href="#" class="btn btn-link">
+    <p class="businessid"><%= @user.business_id_card%></p>
+    
+</a>
     <div class="divider m-5"></div>
     <%= form_for :payment, url: "payments/pay_link", class: "form" do |form| %>
 
-    <h5 class="rateplz" id="business-id-heading"></h5>
-      <%disabled = params[:id].present?%> 
-    <%= form.text_field :id, readonly: disabled, value: params[:id] %>
    
     <div style="display: inline-block;">
       <h5  id="amount-heading" class="writeamt pt-4" style="display: inline-block; margin: 0;">Amount:</h5>
