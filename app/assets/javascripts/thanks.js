@@ -12,10 +12,10 @@ document.addEventListener('DOMContentLoaded', function () {
             thanksMessageElement.textContent = 'MyTips شكراً لاستعمالك';
             break;
         case 'fr':
-            thanksMessageElement.textContent = "Merci d'avoir utilisé My Tips";
+            thanksMessageElement.textContent = "Merci d'avoir utilisé MyTips";
             break;
         default:
-            thanksMessageElement.textContent = 'Thanks for using My Tips';
+            thanksMessageElement.textContent = 'Thanks for using MyTips';
             break;
     }
 });
