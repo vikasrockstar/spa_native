@@ -1,9 +1,9 @@
 module Admin
   class UsersController < ActionController::Base
     layout 'custom_layout'
-    protect_from_forgery with: :exception
-    # protect_from_forgery with: :null_session
-    ADMIN_EMAILS_LIST = ["admin@mytips.com"]  
+    # protect_from_forgery with: :exception
+    skip_before_action :verify_authenticity_token
+    ADMIN_EMAILS_LIST = ["admin@mytips.com"]
 
     before_action :require_login, only: [:users_list]
     before_action :set_user, only: [:login], if: -> { request.method == "POST" }
