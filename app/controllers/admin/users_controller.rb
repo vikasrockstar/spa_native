@@ -2,7 +2,7 @@ module Admin
   class UsersController < ActionController::Base
     layout 'custom_layout'
     protect_from_forgery with: :exception
-    protect_from_forgery with: :null_session
+    # protect_from_forgery with: :null_session
     ADMIN_EMAILS_LIST = ["admin@mytips.com"]  
 
     before_action :require_login, only: [:users_list]
