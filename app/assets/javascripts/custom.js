@@ -12,17 +12,36 @@ document.addEventListener('DOMContentLoaded', function () {
     var amountField = form.querySelector('input[name="payment[amount]"]');
     var amountValue = amountField.value.trim();
 
+    const alertMessages = {
+      'en': {
+        amountEmptyMessage: 'Amount cannot be empty',
+        amountLessThanTwoMessage: 'Amount cannot be less than 2',
+      },
+      'fr': {
+        amountEmptyMessage: 'Le montant ne peut pas être vide',
+        amountLessThanTwoMessage: 'Le montant ne peut pas être inférieur à 2',
+      },
+      'ar': {
+        amountEmptyMessage:'لا يمكن أن يكون المبلغ فارغًا',
+        amountLessThanTwoMessage: 'لا يمكن أن يكون المبلغ أقل من 2',
+      },
+    };
+
+    let locale = 'en';
+    const allCookies = document.cookie;
+    const [cookieName, cookieValue] = allCookies.trim().split('=');
+    locale = cookieValue;
+
     if (amountValue === '') {
       event.preventDefault();
       document.getElementById("demo").innerHTML = "*";
       document.getElementById("demo").style.color = 'red';
-      alert('Amount cannot be empty');
-    }
-    else if (amountValue < 2) {
+      alert(alertMessages[locale].amountEmptyMessage);
+    } else if (amountValue < 2) {
       event.preventDefault();
       document.getElementById("demo").innerHTML = "*";
       document.getElementById("demo").style.color = 'red';
-      alert('Amount cannot be less than 2');
+      alert(alertMessages[locale].amountLessThanTwoMessage);
     }
   });
 
@@ -63,4 +82,3 @@ document.addEventListener('DOMContentLoaded', function () {
   const currentLocale = localeSelect.value;
   updateHeadingText(currentLocale);
 });
-
