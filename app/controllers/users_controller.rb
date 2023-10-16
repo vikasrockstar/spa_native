@@ -17,9 +17,11 @@ class UsersController < ApplicationController
   end
 
   def login
-    if @user&.authenticate(params[:password])
+    if @user&.authenticate(params[:password]) && !@user.suspended?
       token = JsonWebToken.encode(user_id: @user.id)
       render json: { token: token }, status: :ok
+    elsif @user.suspended?
+      render json: { errors: ['User is suspended'] }, status: :forbidden
     else
       render json: { errors: ['password is incorrect'] }, status: 400
     end

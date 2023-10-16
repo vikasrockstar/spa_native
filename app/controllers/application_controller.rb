@@ -16,5 +16,8 @@ class ApplicationController < ActionController::Base
     rescue JWT::DecodeError => e
       render json: { errors: [e.message] }, status: :unauthorized
     end
+    if @current_user.suspended?
+      render json: { errors: ['User is suspended'] }, status: :forbidden
+    end
   end
 end
