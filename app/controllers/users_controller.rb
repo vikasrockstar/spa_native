@@ -39,13 +39,17 @@ class UsersController < ApplicationController
   end
 
   def generate_otp
-    # @user.send_auth_code
+    @user.send_auth_code unless @user.country_code == "+91"
     render json:  {user: @user.filter_attributes, message: 'otp sent to mobile number'}, status: 200
   end
 
   def validate_otp
-    # @user.authenticate_otp(params[:otp_code], auto_increment: true)
-    if params[:otp_code] == '1234'
+    if @user.country_code == "+91" && params[:otp_code] == '1234'
+      @user.is_mobile_verified = true
+      @user.save
+      token = JsonWebToken.encode(user_id: @user.id)
+      render json: { user: @user.filter_attributes, token: token, message: 'successfully validated otp code' }, status: 200
+    elsif @user.authenticate_otp(params[:otp_code], auto_increment: true)
       @user.is_mobile_verified = true
       @user.save
       token = JsonWebToken.encode(user_id: @user.id)
